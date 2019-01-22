@@ -1,6 +1,7 @@
 package it.unisa.model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,8 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 				bean.setNome(rs.getString("NOME"));
 				bean.setMarca(rs.getString("MARCA"));
 				bean.setPromo(rs.getBoolean("PROMO"));
-				bean.setQuantita(rs.getInt("QUANTITA"));
+				bean.setQuantitaNelCarrello(rs.getInt("QUANTITANELCARRELLO"));
+				bean.setQuantitaInMagazzino(rs.getInt("QUANTITAINMAGAZZINO"));
 				products.add(bean);
 			}
 		}finally {
@@ -112,7 +114,8 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 					bean.setNome(rs.getString("NOME"));
 					bean.setMarca(rs.getString("MARCA"));
 					bean.setPromo(rs.getBoolean("PROMO"));
-					bean.setQuantita(rs.getInt("QUANTITA"));
+					bean.setQuantitaNelCarrello(rs.getInt("QUANTITANELCARRELLO"));
+					bean.setQuantitaInMagazzino(rs.getInt("QUANTITAINMAGAZZINO"));
 					return bean;
 					
 				}
@@ -145,7 +148,7 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 						bean.setTipo(rs.getString("CATEGORIA"));
 						bean.setNome(rs.getString("NOME"));
 						bean.setMarca(rs.getString("MARCA"));
-						bean.setQuantita(rs.getInt("QUANTITA"));
+						bean.setQuantitaPrenotata(rs.getInt("QUANTITAPRENOTATA"));
 						bean.setIdPrenotazioneProdotto(rs.getInt("IDPRENOTAZIONEPRODOTTO"));
 						bean.setCodiceCliente(rs.getString("CFCLIENTE"));
 						bean.setPrezzo(rs.getDouble("PREZZO"));
@@ -181,7 +184,6 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 							bean.setTipo(rs.getString("CATEGORIA"));
 							bean.setNome(rs.getString("NOME"));
 							bean.setMarca(rs.getString("MARCA"));
-							bean.setQuantita(rs.getInt("QUANTITA"));
 							bean.setIdPrenotazione(rs.getInt("IDPRENOTAZIONERIPARAZIONE"));
 							bean.setDataIncontro(rs.getDate("dataincontro"));
 							bean.setCodiceCliente(rs.getString("CFCLIENTE"));
@@ -233,14 +235,67 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 		}
 		
 	}
-
+*/
 	
 	@Override
-	public void doUpdate(MerceBean product) throws SQLException {
-		// TODO Auto-generated method stub
+	public void doUpdateQuantitaNelCarrello(int codice, int quantita) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE prodottoinmagazzino SET quantitanelcarrello = ? WHERE idpm = ?";
+		
+
+		try {
+			
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1, quantita);
+			preparedStatement.setInt(2, codice);
+			
+			preparedStatement.executeUpdate();
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
+	}
+	
+	@Override
+	public void doUpdateQuantitaInMagazzino(int codice, int quantita) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE prodottoinmagazzino SET quantitainmagazzino = ? WHERE idpm = ?";
+		
+
+		try {
+			
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(updateSQL);
+			preparedStatement.setInt(1, quantita);
+			preparedStatement.setInt(2, codice);
+			
+			preparedStatement.executeUpdate();
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
 		
 	}
 
+/*
 	@Override
 	public boolean doDelete(int code) throws SQLException {
 		Connection connection = null;
@@ -360,8 +415,9 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 				bean.setTipo(rs.getString("CATEGORIA"));
 				bean.setNome(rs.getString("NOME"));
 				bean.setMarca(rs.getString("MARCA"));
-				bean.setQuantita(rs.getInt("QUANTITA"));
+				bean.setQuantitaNelCarrello(rs.getInt("QUANTITANELCARRELLO"));
 				bean.setPromo(rs.getBoolean("PROMO"));
+				bean.setQuantitaInMagazzino(rs.getInt("QUANTITAINMAGAZZINO"));
 				products.add(bean);
 			}
 		}finally {
@@ -377,16 +433,33 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 	}
 
 @Override
-public void doSave(ProdottoBean product) throws SQLException {
-	// TODO Auto-generated method stub
+public void doSave(ProdottoBean prodotto) throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
 	
-}
-
-
-@Override
-public void doUpdate(ProdottoBean product) throws SQLException {
-	// TODO Auto-generated method stub
+	String insertSQL = "INSERT INTO PRODOTTO (codice,nome,categoria,prezzo,marca,descrizione,immagine) VALUES (?,?,?,?,?,?,?)";
 	
+	try {
+		connection = DriverManagerConnectionPool.getConnection();
+		preparedStatement = connection.prepareStatement(insertSQL);
+		preparedStatement.setInt(1, prodotto.getIdProdotto());
+		preparedStatement.setString(2, prodotto.getNome());
+		preparedStatement.setString(3, prodotto.getTipo());
+		preparedStatement.setDouble(4, prodotto.getCosto());
+		preparedStatement.setString(5, prodotto.getMarca());
+		preparedStatement.setString(6, prodotto.getDescrizione());
+		preparedStatement.setString(7, prodotto.getImmagine());
+	
+		preparedStatement.executeUpdate();
+		connection.commit();
+	}catch(Exception e){
+		try {
+			if(preparedStatement!=null)
+				preparedStatement.close();
+		}finally {
+			DriverManagerConnectionPool.releaseConnection(connection);
+		}
+	}
 }
 
 

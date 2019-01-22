@@ -9,15 +9,25 @@ public class ProdottoPrenotatoBean extends ProdottoBean{
 	private String codiceCliente;
 	private double prezzo;
 	private Date dataPrenotazione;
-	
+	private int quantitaPrenotata;
+
 	public ProdottoPrenotatoBean() {
 		super();
 		idPrenotazioneProdotto = 0;
 		codiceCliente = "";
 		prezzo = 0;
 		dataPrenotazione = null;
+		quantitaPrenotata = 0;
 	}
 
+	public int getQuantitaPrenotata() {
+		return quantitaPrenotata;
+	}
+
+	public void setQuantitaPrenotata(int quantitaPrenotata) {
+		this.quantitaPrenotata = quantitaPrenotata;
+	}
+	
 	public int getIdPrenotazioneProdotto() {
 		return idPrenotazioneProdotto;
 	}

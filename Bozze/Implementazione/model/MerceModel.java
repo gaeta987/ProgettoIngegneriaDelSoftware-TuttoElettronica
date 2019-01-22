@@ -10,17 +10,21 @@ public interface MerceModel<T> {
 	
 	public Collection<ProdottoInMagazzinoBean> doRetrieveAll()throws SQLException;
 	
-	public void doSave(T product)throws SQLException;
+	public void doUpdateQuantitaNelCarrello(int codice, int quantita)throws SQLException;
 	
-	public void doUpdate(T product)throws SQLException;
+	public void doUpdateQuantitaInMagazzino(int codice, int quantita)throws SQLException;
 	
 	public String doRetrieveURL(int code) throws SQLException;
+	
 	public boolean doDelete(int code)throws SQLException;
 	
 	public void setFormato(String parola,int codice)throws SQLException;
+	
 	public Collection<T> doRetrieveAllFormato(String parola)throws SQLException;
 	
 	public Collection<T> doRetrieveAllFormatoP(String parola)throws SQLException;
 	
 	public ArrayList<T> doRetrieveCategoria(String parola)throws SQLException;
+
+	public void doSave(ProdottoBean product) throws SQLException;
 }

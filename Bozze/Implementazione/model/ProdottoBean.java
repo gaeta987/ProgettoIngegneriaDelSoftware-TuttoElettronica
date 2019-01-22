@@ -8,7 +8,6 @@ private String nome;
 private String tipo;
 private String marca;
 private double costo;
-private int quantita;
 private String immagine;
 private String descrizione;
 
@@ -21,7 +20,6 @@ private String descrizione;
 		nome="";
 		idProdotto = 0;
 		marca = "";
-		quantita = 0;
 	}
 	public int getIdProdotto() {
 		return idProdotto;
@@ -34,12 +32,6 @@ private String descrizione;
 	}
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}
-	public int getQuantita() {
-		return quantita;
-	}
-	public void setQuantita(int quantita) {
-		this.quantita = quantita;
 	}
 	public String getImmagine() {
 		return immagine;

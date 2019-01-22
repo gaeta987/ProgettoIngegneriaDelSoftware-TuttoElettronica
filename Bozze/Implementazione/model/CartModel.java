@@ -7,7 +7,9 @@ public interface CartModel<T> {
 	
 
 	public Cart<T> doRetrieveByKey(String codiceCliente) throws SQLException;
-	public void doUpdateProdotti(Cart carrello) throws SQLException;
+	
 	public void doInsertProdotti(Cart carrello) throws SQLException;
+	
+	public void doDeleteProdotti(Cart carrello) throws SQLException;
 
 }

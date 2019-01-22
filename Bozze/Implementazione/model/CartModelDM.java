@@ -57,39 +57,6 @@ public class CartModelDM implements CartModel<ProdottoInMagazzinoBean>{
 		return cart;
 	}
 	
-	public void doUpdateProdotti(Cart carrello) throws SQLException{
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		String updateSQL = "UPDATE CARRELLO SET LISTAPRODOTTI = ? WHERE IDCARRELLO = ?" ;
-		
-		
-		String listaProdotti = "";
-		ArrayList<ProdottoInMagazzinoBean> lista = (ArrayList<ProdottoInMagazzinoBean>) carrello.getList();
-		for(int i = 0; i < lista.size(); i++) {
-			listaProdotti += lista.get(i).getIdProdotto() + ",";
-		}
-		try {
-			
-			connection=DriverManagerConnectionPool.getConnection();
-			preparedStatement=connection.prepareStatement(updateSQL);
-			preparedStatement.setString(1, listaProdotti);
-			preparedStatement.setInt(2, carrello.getId());
-			
-		    preparedStatement.executeUpdate();
-			
-			connection.commit();
-			
-			
-		}finally {
-			try {
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-	}
 	
 	public void doInsertProdotti(Cart carrello) throws SQLException{
 		Connection connection = null;
@@ -121,6 +88,29 @@ public class CartModelDM implements CartModel<ProdottoInMagazzinoBean>{
 				if(preparedStatement!=null)
 					preparedStatement.close();
 			}finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+	}
+	
+	public void doDeleteProdotti(Cart carrello) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String deleteSQL = "DELETE FROM carrello WHERE idCarrello = ?";
+		
+		try {
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setInt(1, carrello.getId());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}

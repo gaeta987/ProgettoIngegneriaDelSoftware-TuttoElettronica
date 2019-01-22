@@ -48,6 +48,22 @@ public class Cart<T> implements Serializable {
 		}
 	}
 
+	/*public boolean searchProduct(T element) {
+		for(T e : list) {
+			if(e.equals(element)) {
+				return true;
+			}
+		}
+		return false;
+	}*/
+	
+	public T getElement(T element) {
+		for(T e : list) {
+			if(e.equals(element))
+				return e;
+		}
+		return null;
+	}
 	public List<T> getList(){
 		return list;
 	}

@@ -18,7 +18,7 @@ public class CartControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	static MerceModel<ProdottoBean> model = new MerceModelDM();
-	static CartModel<ProdottoInMagazzinoBean> cartModel = new CartModelDM();
+
 
     public CartControl() {
         super();
@@ -27,7 +27,10 @@ public class CartControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String codiceCliente = (String) request.getSession().getAttribute("codiceFiscale");
+		
 		Cart<ProdottoInMagazzinoBean> cart = (Cart<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
+
 		HttpSession session = request.getSession();
 		synchronized (session) {
 			if(cart == null) {
@@ -41,21 +44,30 @@ public class CartControl extends HttpServlet {
 				 if(action != null) {
 					if(action.equalsIgnoreCase("addCart")) {
 						 int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-						 String codiceCliente = (String) request.getSession().getAttribute("codiceFiscale");
-						 cart = cartModel.doRetrieveByKey(codiceCliente);
+						 int quantita = Integer.parseInt(request.getParameter("quantity"));
+						 
 						 cart.setCodiceFiscaleCliente(codiceCliente);
 						 
-						 cart.addElement((ProdottoInMagazzinoBean)(model.doRetrieveByKey(idProdotto, "prodottoinmagazzino")));
-						 
-						 if(cart.getList().size() == 1)
-							 cartModel.doInsertProdotti(cart);
-						 else
-							 cartModel.doUpdateProdotti(cart);
-					 } else if(action.equalsIgnoreCase("delCart")) {/*
-						 int id = Integer.parseInt(request.getParameter("id"));
-						 cart.deleteElement(model.doRetrieveByKey(id));*/
-					 }
+						 ProdottoInMagazzinoBean prodotto = (ProdottoInMagazzinoBean)(model.doRetrieveByKey(idProdotto, "prodottoinmagazzino"));
+						
+						 if(cart.getElement(prodotto) != null) {
+							 cart.getElement(prodotto).setQuantitaNelCarrello(cart.getElement(prodotto).getQuantitaNelCarrello() + quantita);
+							 model.doUpdateQuantitaNelCarrello(prodotto.getIdProdotto(), prodotto.getQuantitaNelCarrello() + quantita);
+							 model.doUpdateQuantitaInMagazzino(prodotto.getIdProdotto(), prodotto.getQuantitaInMagazzino() - quantita);
+						 }else {
+							 prodotto.setQuantitaNelCarrello(quantita);
+							 prodotto.setQuantitaInMagazzino(prodotto.getQuantitaInMagazzino() - quantita);
+							 cart.addElement(prodotto);
+							 model.doUpdateQuantitaNelCarrello(prodotto.getIdProdotto(), prodotto.getQuantitaNelCarrello());
+							 model.doUpdateQuantitaInMagazzino(prodotto.getIdProdotto(), prodotto.getQuantitaInMagazzino());
+							 
+					 } 
+				 }else if(action.equalsIgnoreCase("delCart")) {/*
+					 int id = Integer.parseInt(request.getParameter("id"));
+					 cart.deleteElement(model.doRetrieveByKey(id));*/
 				 }
+				 }
+				 
 			} catch(Exception e) {
 				System.out.println("Error: "+e.getMessage());
 				request.setAttribute("error", e.getMessage());

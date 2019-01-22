@@ -1,19 +1,29 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.model.Cart;
+import it.unisa.model.CartModel;
+import it.unisa.model.CartModelDM;
 import it.unisa.model.ClienteBean;
 import it.unisa.model.ClienteModel;
 import it.unisa.model.ClienteModelDM;
+import it.unisa.model.ProdottoInMagazzinoBean;
+import it.unisa.model.RiparazioneModelDM;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	static ClienteModel<ClienteBean> model=new ClienteModelDM();
+	static CartModel<ProdottoInMagazzinoBean> cartModel = new CartModelDM();
+	static RiparazioneModelDM riparazioneModel = new RiparazioneModelDM();
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -39,6 +49,14 @@ public class Login extends HttpServlet {
 					else {
 						request.getSession().setAttribute("userRoles", "cliente");
 						redirectedPage = "/index.jsp";
+						
+						Cart<ProdottoInMagazzinoBean> cart;
+						cart = cartModel.doRetrieveByKey((String)request.getSession().getAttribute("codiceFiscale"));
+						request.getSession().setAttribute("cart", cart);
+					
+						Date[] date = riparazioneModel.doRetrieveAll();
+						request.getSession().setAttribute("datePrenotazioni", date);
+						
 					}
 			} catch (Exception e) {
 				request.getSession().setAttribute("userRoles", "navigatore");
