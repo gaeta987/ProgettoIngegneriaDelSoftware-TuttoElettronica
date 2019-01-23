@@ -151,7 +151,6 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 						bean.setQuantitaPrenotata(rs.getInt("QUANTITAPRENOTATA"));
 						bean.setIdPrenotazioneProdotto(rs.getInt("IDPRENOTAZIONEPRODOTTO"));
 						bean.setCodiceCliente(rs.getString("CFCLIENTE"));
-						bean.setPrezzo(rs.getDouble("PREZZO"));
 						bean.setDataPrenotazione(rs.getDate("DATAPRENOTAZIONE"));
 						return bean;
 					}
@@ -295,102 +294,6 @@ public class MerceModelDM implements MerceModel<ProdottoBean> {
 		
 	}
 
-/*
-	@Override
-	public boolean doDelete(int code) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		int result = 0;
-
-		String deleteSQL = "DELETE FROM MERCE"+ " WHERE CODICE = ?";
-
-		try {
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setInt(1, code);
-
-			
-			result = preparedStatement.executeUpdate();
-
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		return (result != 0);
-	}
-
-	@Override
-	public Collection<MerceBean> doRetrieveAllFormato(String parola) throws SQLException {
-		Connection connection=null;
-		PreparedStatement preparedStatement=null;
-		Collection<MerceBean> products=new LinkedList<MerceBean>();
-		
-		String selectSQL="SELECT * FROM MERCE WHERE FORMATO=?";
-		
-		try {
-			
-			connection=DriverManagerConnectionPool.getConnection();
-			preparedStatement=connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, parola);
-			ResultSet rs=preparedStatement.executeQuery();
-			while(rs.next()) {
-				MerceBean bean=new MerceBean();
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setCosto(Double.parseDouble(rs.getString("COSTO")));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setCosto_prom(Double.parseDouble(rs.getString("COSTO_PROM")));
-				bean.setUrl(rs.getString("URL"));
-				bean.setTipo(rs.getString("TIPO"));
-				bean.setNome(rs.getString("NOME"));
-				products.add(bean);
-			}
-		}finally {
-			try {
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		
-		return products;
-	}
-
-
-	@Override
-	public void setFormato(String parola, int codice) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		String insertSQL = "UPDATE MERCE SET FORMATO = ? WHERE CODICE = ?";
-
-		try {
-			
-			connection = DriverManagerConnectionPool.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, parola);
-			preparedStatement.setInt(2, codice);
-			
-			preparedStatement.executeUpdate();
-			
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		
-	}
-*/
 
 	@Override
 	public ArrayList<ProdottoBean> doRetrieveCategoria(String parola) throws SQLException {
@@ -469,53 +372,31 @@ public boolean doDelete(int code) throws SQLException {
 	return false;
 }
 
-
-@Override
-public void setFormato(String parola, int codice) throws SQLException {
-	// TODO Auto-generated method stub
+public Collection<ProdottoBean> doRetrieveByCodiceFiscale(String codiceFiscale, String tipoProdotto) throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	String selectSQL = "";
+	ArrayList<ProdottoBean> prodotti = new ArrayList<ProdottoBean>();
 	
-}
-
-
-@Override
-public Collection<ProdottoBean> doRetrieveAllFormato(String parola) throws SQLException {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-
-@Override
-public Collection<ProdottoBean> doRetrieveAllFormatoP(String parola) throws SQLException {
-	// TODO Auto-generated method stub
-	return null;
-}
-}
-
-/*
-	@Override
-	public Collection<MerceBean> doRetrieveAllFormatoP(String parola) throws SQLException {
-		Connection connection=null;
-		PreparedStatement preparedStatement=null;
-		Collection<MerceBean> products=new LinkedList<MerceBean>();
-		
-		String selectSQL="SELECT * FROM MERCE WHERE FORMATO=?&&COSTO_PROM>0";
-		
+	if(tipoProdotto.equalsIgnoreCase("prodottoprenotato")) {
+		selectSQL="SELECT * FROM PRODOTTOPRENOTATO AS PP, PRODOTTO AS P WHERE PP.CFCLIENTE = ? && P.CODICE = PP.IDP";
 		try {
 			
 			connection=DriverManagerConnectionPool.getConnection();
 			preparedStatement=connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, parola);
+			preparedStatement.setString(1, codiceFiscale);
 			ResultSet rs=preparedStatement.executeQuery();
 			while(rs.next()) {
-				MerceBean bean=new MerceBean();
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setCosto(Double.parseDouble(rs.getString("COSTO")));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setCosto_prom(Double.parseDouble(rs.getString("COSTO_PROM")));
-				bean.setUrl(rs.getString("URL"));
-				bean.setTipo(rs.getString("TIPO"));
-				bean.setNome(rs.getString("NOME"));
-				products.add(bean);
+				ProdottoPrenotatoBean bean=new ProdottoPrenotatoBean();
+				bean.setIdProdotto(rs.getInt("idp"));
+				bean.setCodiceCliente(rs.getString("cfcliente"));
+				bean.setDataPrenotazione(rs.getDate("dataprenotazione"));
+				bean.setQuantitaPrenotata(rs.getInt("quantitaprenotata"));
+				bean.setNome(rs.getString("nome"));
+				bean.setTipo(rs.getString("categoria"));
+				bean.setCosto(rs.getDouble("prezzo"));
+				bean.setImmagine(rs.getString("immagine"));
+				prodotti.add(bean);
 			}
 		}finally {
 			try {
@@ -526,11 +407,42 @@ public Collection<ProdottoBean> doRetrieveAllFormatoP(String parola) throws SQLE
 			}
 		}
 		
-		return products;
-		
-	}
-}
-*/
+	}else
+		if(tipoProdotto.equalsIgnoreCase("prodottoinriparazione")) {
+			selectSQL="SELECT * FROM PRODOTTOINRIPARAZIONE AS PR, PRODOTTO AS P WHERE PR.CFCLIENTE = ? && P.CODICE = PR.IDPR";
+			try {
+				
+				connection=DriverManagerConnectionPool.getConnection();
+				preparedStatement=connection.prepareStatement(selectSQL);
+				preparedStatement.setString(1, codiceFiscale);
+				ResultSet rs=preparedStatement.executeQuery();
+				while(rs.next()) {
+					ProdottoInRiparazioneBean bean=new ProdottoInRiparazioneBean();
+					bean.setIdProdotto(rs.getInt("idpr"));
+					bean.setCodiceCliente(rs.getString("cfcliente"));
+					bean.setDataIncontro(rs.getDate("dataincontro"));
+					bean.setStatoRiparazione(rs.getString("statoriparazione"));
+					bean.setDescrizioneProblema(rs.getString("descrizioneproblema"));
+					bean.setNome(rs.getString("nome"));
+					bean.setTipo(rs.getString("categoria"));
+					bean.setImmagine(rs.getString("immagine"));
+					prodotti.add(bean);
+				}
+			}finally {
+				try {
+					if(preparedStatement!=null)
+						preparedStatement.close();
+				}finally {
+					DriverManagerConnectionPool.releaseConnection(connection);
+				}
+			}
+		}
 	
+	return prodotti;
+	
+}
+
+}
+
 
 

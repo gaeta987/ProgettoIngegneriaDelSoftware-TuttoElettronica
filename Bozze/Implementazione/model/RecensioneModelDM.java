@@ -89,16 +89,15 @@ public class RecensioneModelDM implements RecensioneModel<Recensioni> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO RECENSIONI (ID,CFCLIENTE,COD_MERCE,TESTO, VOTO) VALUES (?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO RECENSIONI (CF_CLIENTE,COD_MERCE,TESTO, VOTO) VALUES (?, ?, ?, ?)";
 
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setInt(1, recensione.getId());
-			preparedStatement.setString(2, recensione.getCodiceCliente());
-			preparedStatement.setInt(3, recensione.getCodiceProdotto());
-			preparedStatement.setString(4, recensione.getTesto());
-			preparedStatement.setInt(5, recensione.getVoto());
+			preparedStatement.setString(1, recensione.getCodiceCliente());
+			preparedStatement.setInt(2, recensione.getCodiceProdotto());
+			preparedStatement.setString(3, recensione.getTesto());
+			preparedStatement.setInt(4, recensione.getVoto());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} finally {

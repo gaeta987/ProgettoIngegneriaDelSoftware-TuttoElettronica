@@ -18,13 +18,9 @@ public interface MerceModel<T> {
 	
 	public boolean doDelete(int code)throws SQLException;
 	
-	public void setFormato(String parola,int codice)throws SQLException;
-	
-	public Collection<T> doRetrieveAllFormato(String parola)throws SQLException;
-	
-	public Collection<T> doRetrieveAllFormatoP(String parola)throws SQLException;
-	
 	public ArrayList<T> doRetrieveCategoria(String parola)throws SQLException;
 
 	public void doSave(ProdottoBean product) throws SQLException;
+	
+	public Collection<T> doRetrieveByCodiceFiscale(String codiceFiscale, String tipoProdotto) throws SQLException;
 }

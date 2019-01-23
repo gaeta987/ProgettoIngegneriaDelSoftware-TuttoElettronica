@@ -7,7 +7,6 @@ public class ProdottoPrenotatoBean extends ProdottoBean{
 
 	private int idPrenotazioneProdotto;
 	private String codiceCliente;
-	private double prezzo;
 	private Date dataPrenotazione;
 	private int quantitaPrenotata;
 
@@ -15,7 +14,6 @@ public class ProdottoPrenotatoBean extends ProdottoBean{
 		super();
 		idPrenotazioneProdotto = 0;
 		codiceCliente = "";
-		prezzo = 0;
 		dataPrenotazione = null;
 		quantitaPrenotata = 0;
 	}
@@ -42,14 +40,6 @@ public class ProdottoPrenotatoBean extends ProdottoBean{
 
 	public void setCodiceCliente(String codiceCliente) {
 		this.codiceCliente = codiceCliente;
-	}
-
-	public double getPrezzo() {
-		return prezzo;
-	}
-
-	public void setPrezzo(double prezzo) {
-		this.prezzo = prezzo;
 	}
 
 	public Date getDataPrenotazione() {
