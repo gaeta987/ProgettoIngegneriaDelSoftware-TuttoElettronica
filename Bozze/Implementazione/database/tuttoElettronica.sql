@@ -58,15 +58,14 @@ CREATE TABLE gestoreRiparazioni (
 DROP TABLE IF EXISTS prodotto;
 
 CREATE TABLE prodotto (	
-  codice int primary key,
+  codice int primary key AUTO_INCREMENT,
   nome varchar(150) not null,
   categoria varchar(20) not null,
   prezzo double not null,
   marca varchar(29),
   descrizione varchar(500),
   immagine varchar(300)
-
-);
+)AUTO_INCREMENT=0;
 
 DROP TABLE IF EXISTS prodottoInMagazzino;
 CREATE TABLE prodottoInMagazzino(
@@ -123,8 +122,12 @@ CREATE TABLE carrello (
     primary key(idCarrello)
 )AUTO_INCREMENT=0;
 
-INSERT INTO PRODOTTO (codice,nome,categoria,prezzo,marca,descrizione,immagine) VALUES (1, "arduino UNO", "arduino", "10", "arduino", "ciao sono arduino", "arduino.jpg");
-INSERT INTO PRODOTTOINMAGAZZINO (idPM, promo, quantitainmagazzino, quantitanelcarrello) VALUES (1, false, 10, 0);
+INSERT INTO PRODOTTO (nome,categoria,prezzo,marca,descrizione,immagine) VALUES ("arduino UNO", "arduino", "10", "arduino", "ciao sono arduino", "arduino.jpg");
+INSERT INTO PRODOTTOINMAGAZZINO (idPM, promo, quantitainmagazzino, quantitanelcarrello) VALUES (1,false, 10, 0);
+INSERT INTO PRODOTTO (nome,categoria,prezzo,marca,descrizione,immagine) VALUES ("arduino UNO", "arduino", "10", "arduino", "ciao sono arduino", "arduino.jpg");
+INSERT INTO PRODOTTOINMAGAZZINO (idPM, promo, quantitainmagazzino, quantitanelcarrello) VALUES (2, TRUE, 10, 0);
+INSERT INTO PRODOTTO (nome,categoria,prezzo,marca,descrizione,immagine) VALUES ("arduino UNO", "arduino", "10", "arduino", "ciao sono arduino", "arduino.jpg");
+INSERT INTO PRODOTTOINMAGAZZINO (idPM, promo, quantitainmagazzino, quantitanelcarrello) VALUES (3, TRUE, 10, 0);
 
 INSERT INTO CLIENTE (username, indirizzo, cf, nome, cognome, ruolo, password, email) VALUES ("ggg", "via roma", "CMMGTN80A01C361Z", "Gaetano", "Cimmino", "cliente", "ggg123", "gaetano@gmail.com");
 

@@ -340,7 +340,7 @@ public void doSave(ProdottoBean prodotto) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	
-	String insertSQL = "INSERT INTO PRODOTTO (codice,nome,categoria,prezzo,marca,descrizione,immagine) VALUES (?,?,?,?,?,?,?)";
+	String insertSQL = "INSERT INTO PRODOTTO (nome,categoria,prezzo,marca,descrizione,immagine) VALUES (?,?,?,?,?,?)";
 	
 	try {
 		connection = DriverManagerConnectionPool.getConnection();
@@ -440,6 +440,75 @@ public Collection<ProdottoBean> doRetrieveByCodiceFiscale(String codiceFiscale, 
 	
 	return prodotti;
 	
+}
+
+
+@Override
+public int doRetrieveLastKey() throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	
+	String selectSQL ="SELECT MAX(CODICE) FROM PRODOTTO";
+	int lastCodice = 0;
+	
+	try {
+		connection = DriverManagerConnectionPool.getConnection();
+		preparedStatement = connection.prepareStatement(selectSQL);
+		
+		ResultSet rs=preparedStatement.executeQuery();
+		while(rs.next()) {
+			lastCodice = rs.getInt("max(codice)");	
+		}
+	}catch(Exception e){
+		try {
+			if(preparedStatement!=null)
+				preparedStatement.close();
+		}finally {
+			DriverManagerConnectionPool.releaseConnection(connection);
+		}
+	}
+	
+	return lastCodice;
+}
+
+
+@Override
+public Collection<ProdottoInMagazzinoBean> doRetrieveOnSale() throws SQLException {
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	
+	String selectSQL = "SELECT * FROM PRODOTTOINMAGAZZINO AS PM, PRODOTTO AS P WHERE P.CODICE = IDPM && PROMO = TRUE";
+	
+	Collection<ProdottoInMagazzinoBean> prodottiOnSale = new ArrayList<ProdottoInMagazzinoBean>();
+	
+	try {
+		connection = DriverManagerConnectionPool.getConnection();
+		preparedStatement = connection.prepareStatement(selectSQL);
+		
+		ResultSet rs=preparedStatement.executeQuery();
+		while(rs.next()) {
+			ProdottoInMagazzinoBean bean = new ProdottoInMagazzinoBean();
+			bean.setCosto(rs.getDouble("prezzo"));
+			bean.setDescrizione(rs.getString("descrizione"));
+			bean.setIdProdotto(rs.getInt("idpm"));
+			bean.setImmagine(rs.getString("immagine"));
+			bean.setMarca(rs.getString("marca"));
+			bean.setNome(rs.getString("nome"));
+			bean.setPromo(rs.getBoolean("promo"));
+			bean.setQuantitaInMagazzino(rs.getInt("quantitainmagazzino"));
+			bean.setQuantitaNelCarrello(rs.getInt("quantitanelcarrello"));
+			bean.setTipo(rs.getString("categoria"));
+			prodottiOnSale.add(bean);
+		}
+	}catch(Exception e){
+		try {
+			if(preparedStatement!=null)
+				preparedStatement.close();
+		}finally {
+			DriverManagerConnectionPool.releaseConnection(connection);
+		}
+	}
+	return prodottiOnSale;
 }
 
 }

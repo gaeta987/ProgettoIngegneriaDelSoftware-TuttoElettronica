@@ -11,10 +11,7 @@ public interface ClienteModel<T> {
 	
 	public Collection<T> doRetrieveAll2()throws SQLException;
 	
-	
 	public void doSave(T product)throws SQLException;
-	
-	public void doUpdate(T product)throws SQLException;
 	
 	public boolean doDelete(String user)throws SQLException;
 	
@@ -23,4 +20,8 @@ public interface ClienteModel<T> {
 	public void doUpdateRuolo(String user)throws SQLException;
 	
 	public void doUpdatePassword(String user,String pass)throws SQLException;
+	
+	public void doUpdateEmail(String codiceUtente, String Email) throws SQLException;
+	
+	public ClienteBean doRetrieveByKey(String codiceFiscale) throws SQLException;
 }

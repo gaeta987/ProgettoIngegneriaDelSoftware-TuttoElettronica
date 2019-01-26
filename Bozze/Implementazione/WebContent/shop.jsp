@@ -40,6 +40,7 @@
 	
 	<header class="header">
 
+
 		<!-- Header Main -->
 
 		<div class="header_main">
@@ -101,7 +102,15 @@
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/login.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Area Utente</a></div>
+									<div class="wishlist_text"><a href="VisualizzaAccountControl">Area Utente</a></div>
+									
+								</div>
+							</div>
+							
+							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
+								<div class="wishlist_content">
+									<div class="wishlist_text"><a href="Logout">Logout</a></div>
 									
 								</div>
 							</div>
@@ -157,22 +166,22 @@
 
 							<!-- Main Nav Menu -->
 
-							<div class="main_nav_menu ml-auto">
+							<div class="main_nav_menu ml-auto font_size">
 								<ul class="standard_dropdown main_nav_dropdown">
 								<%
 									if(userRoles==null||userRoles.equals("navigatore")){
 								%>
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">Contatti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="contact.jsp">Contatti<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
 									else if(userRoles.equals("cliente")){
 								%>
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="contact.html">Contatti<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Commissiona una riparazione<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="contact.jsp">Contatti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
 									else if(userRoles.equals("gestoreRiparazioni")){
@@ -248,7 +257,7 @@
 									<a href="index.jsp">Home<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="contect.html">Contatti<i class="fa fa-angle-down"></i></a>
+									<a href="contact.jsp">Contatti<i class="fa fa-angle-down"></i></a>
 								</li>
 							</ul>
 							<%
@@ -260,16 +269,16 @@
 									<a href="index.jsp">Home<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="contact.html">Contatti<i class="fa fa-angle-down"></i></a>
+									<a href="contact.jsp">Contatti<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="#">Commissiona una riparazione<i class="fa fa-angle-down"></i></a>
+									<a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="#">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato"">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="#">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione"">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
 								</li>
 							</ul>
 							<%} %>
@@ -321,15 +330,13 @@
 								<div class="product_border"></div>
 								<div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="ClickProduct?id=<%= prodotti.get(i).getIdProdotto() %>"><img  alt="immagine non disponibile" src="DisplayImage?url=<%=prodotti.get(i).getImmagine() %>" ></a></div>
 								<div class="product_content">
-									<div class="product_price"><%=prodotti.get(i).getCosto() %></div>
+									<div class="product_price"><%=prodotti.get(i).getCosto() %>&euro;</div>
 									<div class="product_name"><div><a href="#" tabindex="0"><%=prodotti.get(i).getNome() %></a></div></div>
 								</div>
-								<div class="product_fav"><i class="fas fa-heart"></i></div>
 								<ul class="product_marks">
 									<li class="product_mark product_discount"><% if(prodotti.get(i).isPromo()){%>
 																					In Promo
 																				<%}%>/li>
-									<li class="product_mark product_new">new</li>
 								</ul>
 							</div>
 							<%} %>
@@ -353,13 +360,13 @@
 						<!-- Brands Slider -->
 
 						<marquee loop= "-1" align="center" direction="left" onmouseover=this.stop() onmouseout=this.start() >
-				<a href=""><img src="images/btcino.png"></a>
-				<a href=""><img src="images/came.png"></a>
-				<a href=""><img src="images/comelit.png"></a>
-				<a href=""><img src="images/gbc.png"></a>
-				<a href=""><img src="images/lamp.png"></a>
-				<a href=""><img src="images/siei.png"></a>
-				<a href=""><img src="images/wentronic.png"></a>
+				<img src="images/btcino.png">
+				<img src="images/came.png">
+				<img src="images/comelit.png">
+				<img src="images/gbc.png">
+				<img src="images/lamp.png">
+				<img src="images/siei.png">
+				<img src="images/wentronic.png">
 			</marquee>
 						
 						<!-- Brands Slider Navigation -->

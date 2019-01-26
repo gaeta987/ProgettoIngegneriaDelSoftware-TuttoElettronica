@@ -58,10 +58,6 @@ body
 	background: #FFFFFF;
 	color: #000000;
 }
-.icona{
-	height:40px; 
-	width:40px;
-}
 div
 {
 	display: block;
@@ -402,6 +398,7 @@ section
 	transform: translateY(-1px);
 	font-size: 12px;
 }
+
 .standard_dropdown li ul
 {
 	display: block;
@@ -750,7 +747,7 @@ select option
 }
 .wishlist
 {
-	margin-right: 50px;
+	margin-right: 20px;
 }
 .wishlist_icon img
 {
@@ -3660,4 +3657,12 @@ select option
 .logos_list li:last-child
 {
 	margin-right: 0px;
+}
+
+.font_size ul li{
+	margin-left: 0px;
+	margin-right: 5px;
+}
+.font_size ul li a{
+	font-size: 15px;
 }

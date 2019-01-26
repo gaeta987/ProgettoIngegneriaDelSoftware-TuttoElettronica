@@ -15,6 +15,43 @@ public class ClienteModelDM implements ClienteModel<ClienteBean> {
 		
 	}
 
+	@Override
+	public ClienteBean doRetrieveByKey(String codiceFiscale) throws SQLException{
+		Connection connection=null;
+		PreparedStatement preparedStatement=null;
+		
+		ClienteBean bean = new ClienteBean();
+		
+		String selectSQL = "SELECT * FROM CLIENTE WHERE CF = ? && RUOLO = ?";
+		
+		try {
+			connection=DriverManagerConnectionPool.getConnection();
+			preparedStatement=connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, codiceFiscale);
+			preparedStatement.setString(2, "cliente");
+			
+			ResultSet rs=preparedStatement.executeQuery();
+			while(rs.next()) {
+				bean.setUsername(rs.getString("USERNAME"));
+				bean.setCognome(rs.getString("COGNOME"));
+				bean.setNome(rs.getString("NOME"));
+				bean.setRuolo(rs.getString("RUOLO"));
+				bean.setIndirizzo(rs.getString("INDIRIZZO"));
+				bean.setCf(rs.getString("CF"));
+				bean.setEmail(rs.getString("EMAIL"));
+				bean.setPassword(rs.getString("PASSWORD"));
+			}
+		}finally {
+			try {
+				if(preparedStatement!=null)
+					preparedStatement.close();
+			}finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		return bean;
+		
+	}
 	
 
 	@Override
@@ -84,12 +121,6 @@ public class ClienteModelDM implements ClienteModel<ClienteBean> {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
-		
-	}
-
-	@Override
-	public void doUpdate(ClienteBean product) throws SQLException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -267,7 +298,7 @@ public class ClienteModelDM implements ClienteModel<ClienteBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "UPDATE CLIENTE SET PASSWORD = ? WHERE USERNAME = ?";
+		String insertSQL = "UPDATE CLIENTE SET PASSWORD = ? WHERE CF = ?";
 
 		try {
 			
@@ -289,7 +320,35 @@ public class ClienteModelDM implements ClienteModel<ClienteBean> {
 		}
 		
 	}
+
+	@Override
+	public void doUpdateEmail(String codiceUtente, String email) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "UPDATE CLIENTE SET email = ? WHERE CF = ?";
+
+		try {
+			
+			connection = DriverManagerConnectionPool.getConnection();
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, codiceUtente);
+			
+			preparedStatement.executeUpdate();
+			
+			connection.commit();
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				DriverManagerConnectionPool.releaseConnection(connection);
+			}
+		}
+		
 	}
+}
 
 
 

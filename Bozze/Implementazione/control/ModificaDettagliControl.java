@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.RecensioneModel;
-import it.unisa.model.RecensioneModelDM;
-import it.unisa.model.Recensioni;
+import it.unisa.model.ClienteModel;
+import it.unisa.model.ClienteModelDM;
 
 /**
- * Servlet implementation class RecensioneControl
+ * Servlet implementation class ModificaDettagliControl
  */
-@WebServlet("/RecensioneControl")
-public class RecensioneControl extends HttpServlet {
+@WebServlet("/ModificaDettagliControl")
+public class ModificaDettagliControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static RecensioneModel modelRecensione = new RecensioneModelDM();
+	static ClienteModel clienteModel = new ClienteModelDM();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecensioneControl() {
+    public ModificaDettagliControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,27 +39,27 @@ public class RecensioneControl extends HttpServlet {
 				return;
 		    }
 		 
-		int voto = Integer.parseInt(request.getParameter("voto"));
-		String descrizione = request.getParameter("descrizione");
-		String codiceUtente = (String)request.getSession().getAttribute("codiceFiscale");
-		int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+		String nuovaMail = request.getParameter("email");
+		String nuovaPassword = request.getParameter("password");
+		String codiceFiscale = (String)request.getSession().getAttribute("codiceFiscale");
 		
-		
-		Recensioni recensione = new Recensioni();
-		recensione.setCodiceCliente(codiceUtente);
-		recensione.setCodiceProdotto(idProdotto);
-		recensione.setTesto(descrizione);
-		recensione.setVoto(voto);
-		
-		try {
-			modelRecensione.doSave(recensione);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(nuovaMail != null && !nuovaMail.equalsIgnoreCase("")) {
+			try {
+				clienteModel.doUpdateEmail(codiceFiscale, nuovaMail);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
+		if(nuovaPassword != null && !nuovaPassword.equalsIgnoreCase("")) {
+			try {
+				clienteModel.doUpdatePassword(codiceFiscale, nuovaPassword);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
-		
 	}
 
 	/**

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 public interface RecensioneModel<T> {
-public Collection<T> doRetrieveByKey(int code)throws SQLException;
+public Collection<T> doRetrieveByKey(String code)throws SQLException;
 	
 	public Collection<T> doRetrieveAll()throws SQLException;
 	

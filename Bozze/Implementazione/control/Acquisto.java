@@ -33,6 +33,14 @@ public class Acquisto extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userRoles =(String)request.getSession().getAttribute("userRoles");
+		
+		 if(userRoles == null || !userRoles.equalsIgnoreCase("cliente")){
+		    	response.sendRedirect("./login.jsp");
+				return;
+		    }
+		 
 		String codiceCliente = (String)request.getSession().getAttribute("codiceFiscale");
 		Cart<ProdottoInMagazzinoBean> cart = (Cart<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");;
 		

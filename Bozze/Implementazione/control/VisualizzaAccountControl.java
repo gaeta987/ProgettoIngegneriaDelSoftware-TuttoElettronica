@@ -2,7 +2,6 @@ package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,22 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.MerceModel;
-import it.unisa.model.MerceModelDM;
-import it.unisa.model.ProdottoBean;
+import it.unisa.model.ClienteBean;
+import it.unisa.model.ClienteModel;
+import it.unisa.model.ClienteModelDM;
 
 /**
- * Servlet implementation class Attivit‡AccountControl
+ * Servlet implementation class VisualizzaAccountControl
  */
-@WebServlet("/Attivit‡AccountControl")
-public class Attivit‡AccountControl extends HttpServlet {
+@WebServlet("/VisualizzaAccountControl")
+public class VisualizzaAccountControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static MerceModel<ProdottoBean> merceModel = new MerceModelDM();
+	static ClienteModel clienteModel = new ClienteModelDM();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Attivit‡AccountControl() {
+    public VisualizzaAccountControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,26 +41,18 @@ public class Attivit‡AccountControl extends HttpServlet {
 				return;
 		    }
 		 
-		String tipoProdotto = (String) request.getParameter("tipoProdotto");
 		String codiceFiscale = (String) request.getSession().getAttribute("codiceFiscale");
-		
-		String redirectPage="";
-		if(tipoProdotto.equalsIgnoreCase("prodottoinriparazione"))
-			redirectPage="/prodottiRiparatiBoundary.jsp";
-		else
-			redirectPage="/prodottiPrenotatiBoundary.jsp";
-		
-		ArrayList<ProdottoBean> prodotti = new ArrayList<ProdottoBean>();
-		
+		ClienteBean cliente = new ClienteBean();
 		try {
-			prodotti = (ArrayList<ProdottoBean>)merceModel.doRetrieveByCodiceFiscale(codiceFiscale, tipoProdotto);
+			cliente = (ClienteBean)clienteModel.doRetrieveByKey(codiceFiscale);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("prodottiDaVisualizzare", prodotti);
 		
-		RequestDispatcher view = getServletContext().getRequestDispatcher(redirectPage);
+		request.setAttribute("cliente", cliente);
+		
+		RequestDispatcher view = getServletContext().getRequestDispatcher("/visualizzaAccountBoundary.jsp");
 		view.forward(request, response);
 	}
 

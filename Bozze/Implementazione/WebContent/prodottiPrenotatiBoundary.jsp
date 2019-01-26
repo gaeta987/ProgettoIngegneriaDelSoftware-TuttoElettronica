@@ -9,18 +9,12 @@
 		return;
     }
     
-    Cart cart = (Cart) request.getSession().getAttribute("cart");
-    if(cart == null){
-		response.sendRedirect("./CartControl");
-		return;
-	}
-    
-   
+    ArrayList<ProdottoPrenotatoBean> prodottiDaVisualizzare = (ArrayList<ProdottoPrenotatoBean>)request.getAttribute("prodottiDaVisualizzare");
     %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Cart</title>
+<title>Prenotazioni Effettuate</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
@@ -185,8 +179,8 @@
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.jsp">Contatti<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="AttivitÃ AccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="AttivitÃ AccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
 									else if(userRoles.equals("gestoreRiparazioni")){
@@ -280,10 +274,10 @@
 									<a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="AttivitÃ AccountControl?tipoProdotto=prodottoprenotato"">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato"">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="AttivitÃ AccountControl?tipoProdotto=prodottoinriparazione"">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione"">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
 								</li>
 							</ul>
 							<%} %>
@@ -300,47 +294,47 @@
 	</header>
 
 	<!-- Cart -->
-
+	
+	
 	<div class="cart_section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="cart_container">
-						<div class="cart_title">Shopping Cart</div>
 						
 						<%
-						List<ProdottoInMagazzinoBean> list = cart.getList();
-						for(ProdottoInMagazzinoBean b : list){
+						for(int i = 0; i < prodottiDaVisualizzare.size(); i++){
+							double costoTotale = prodottiDaVisualizzare.get(i).getCosto() * prodottiDaVisualizzare.get(i).getQuantitaPrenotata();
 						%>
-						
 						<div class="cart_items">
 							<ul class="cart_list">
 								<li class="cart_item clearfix">
-									<div class="cart_item_image"><img src="DisplayImage?url=<%=b.getImmagine() %>" alt=""></div>
+								<div class="cart_item_image"><img src="DisplayImage?url=<%=prodottiDaVisualizzare.get(i).getImmagine() %>" alt=""></div>
 									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Name</div>
-											<div class="cart_item_text"><%=b.getTipo() %> <%=b.getNome() %></div>
-										</div>
-										<div class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Marca</div>
-											<div class="cart_item_text"><%=b.getMarca() %></div>
+											<div class="cart_item_title">Nome</div>
+											<div class="cart_item_text"><%=prodottiDaVisualizzare.get(i).getNome() %></div>
 										</div>
 										<div class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Quantity</div>
-											<div class="cart_item_text"><%=b.getQuantitaNelCarrello() %></div>
+											<div class="cart_item_title">Categoria</div>
+											<div class="cart_item_text"><%=prodottiDaVisualizzare.get(i).getTipo() %></div>
 										</div>
-										<div class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Price</div>
-											<div class="cart_item_text"><%=b.getCosto() %></div>
+										<div class="cart_item_quantity cart_info_col">
+											<div class="cart_item_title">Data Prenotazione</div>
+											<div class="cart_item_text"><%=prodottiDaVisualizzare.get(i).getDataPrenotazione() %></div>
 										</div>
 										<div class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Total</div>
-											<div class="cart_item_text"><%=b.getCosto() * b.getQuantitaNelCarrello() %></div>
+											<div class="cart_item_title">Quantità Prenotata</div>
+											<div class="cart_item_text"><%=prodottiDaVisualizzare.get(i).getQuantitaPrenotata() %></div>
 										</div>
+										<div class="cart_item_total cart_info_col">
+											<div class="cart_item_title">Prezzo</div>
+											<div class="cart_item_text"><%=costoTotale %></div>
+										</div>
+										<!-- Inserire recensione -->
 										<div class="cart_item_total cart_info_col">
 											<div class="cart_item_title"></div>
-											<div class="cart_item_text"><a href="CartControl?action=delCart&idProdotto=<%=b.getIdProdotto() %>">Elimina</a></div>
+											<div class="cart_item_text"><a href="inserisciRecensioneBoundary.jsp?idProdotto=<%=prodottiDaVisualizzare.get(i).getIdProdotto()%>">Inserisci Recensione</a></div>
 										</div>
 									</div>
 								</li>
@@ -349,26 +343,7 @@
 						<%
 						}
 						%>
-						
-						<!-- Order Total -->
-						<div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Order Total:</div>
-								<%
-								double total = 0;
-								for(int i = 0; i < list.size(); i++){
-									total += list.get(i).getCosto() * list.get(i).getQuantitaNelCarrello();
-								}
-								%>
-								<div class="order_total_amount"><%=total %></div>
-							</div>
-						</div>
-						<form action="Acquisto">
-						<input type="hidden" name="action" value="acquista">
-							<div class="cart_buttons">
-								<button type="submit" class="button cart_button_checkout">Prenota</button>
-							</div>
-						</form>
+		
 					</div>
 				</div>
 			</div>

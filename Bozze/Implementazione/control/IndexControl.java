@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.unisa.model.MerceModel;
 import it.unisa.model.MerceModelDM;
-import it.unisa.model.ProdottoBean;
+import it.unisa.model.ProdottoInMagazzinoBean;
 
 /**
- * Servlet implementation class Attivit‡AccountControl
+ * Servlet implementation class IndexControl
  */
-@WebServlet("/Attivit‡AccountControl")
-public class Attivit‡AccountControl extends HttpServlet {
+@WebServlet("/IndexControl")
+public class IndexControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static MerceModel<ProdottoBean> merceModel = new MerceModelDM();
+	static MerceModel merceModel = new MerceModelDM();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Attivit‡AccountControl() {
+    public IndexControl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,33 +35,16 @@ public class Attivit‡AccountControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userRoles =(String)request.getSession().getAttribute("userRoles");
-		
-		 if(userRoles == null || !userRoles.equalsIgnoreCase("cliente")){
-		    	response.sendRedirect("./login.jsp");
-				return;
-		    }
-		 
-		String tipoProdotto = (String) request.getParameter("tipoProdotto");
-		String codiceFiscale = (String) request.getSession().getAttribute("codiceFiscale");
-		
-		String redirectPage="";
-		if(tipoProdotto.equalsIgnoreCase("prodottoinriparazione"))
-			redirectPage="/prodottiRiparatiBoundary.jsp";
-		else
-			redirectPage="/prodottiPrenotatiBoundary.jsp";
-		
-		ArrayList<ProdottoBean> prodotti = new ArrayList<ProdottoBean>();
-		
+		ArrayList<ProdottoInMagazzinoBean> prodottiOnSale = new ArrayList<ProdottoInMagazzinoBean>();
 		try {
-			prodotti = (ArrayList<ProdottoBean>)merceModel.doRetrieveByCodiceFiscale(codiceFiscale, tipoProdotto);
+			prodottiOnSale = (ArrayList<ProdottoInMagazzinoBean>) merceModel.doRetrieveOnSale();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("prodottiDaVisualizzare", prodotti);
+		request.setAttribute("prodottiOnSale", prodottiOnSale);
 		
-		RequestDispatcher view = getServletContext().getRequestDispatcher(redirectPage);
+		RequestDispatcher view = getServletContext().getRequestDispatcher("/index.jsp");
 		view.forward(request, response);
 	}
 

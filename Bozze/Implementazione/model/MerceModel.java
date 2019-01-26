@@ -23,4 +23,8 @@ public interface MerceModel<T> {
 	public void doSave(ProdottoBean product) throws SQLException;
 	
 	public Collection<T> doRetrieveByCodiceFiscale(String codiceFiscale, String tipoProdotto) throws SQLException;
+	
+	public int doRetrieveLastKey() throws SQLException;
+	
+	public Collection<ProdottoInMagazzinoBean> doRetrieveOnSale() throws SQLException;
 }

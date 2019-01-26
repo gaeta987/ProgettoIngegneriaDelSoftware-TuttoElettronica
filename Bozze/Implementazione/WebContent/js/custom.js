@@ -104,8 +104,8 @@ $(document).ready(function()
 
 	3. Init Custom Dropdown
 
-	
-*/
+	*/
+
 	function initCustomDropdown()
 	{
 		if($('.custom_dropdown_placeholder').length && $('.custom_list').length)

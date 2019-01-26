@@ -40,7 +40,13 @@ public class PrenotazioneRiparazioneControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userRoles =(String)request.getSession().getAttribute("userRoles");
 		
+		 if(userRoles == null || !userRoles.equalsIgnoreCase("cliente")){
+		    	response.sendRedirect("./login.jsp");
+				return;
+		    }
+		 
 		String codiceUtente = (String)request.getSession().getAttribute("codiceFiscale");
 		String data = (String)request.getParameter("dateRiparazioni");
 		
@@ -64,6 +70,7 @@ public class PrenotazioneRiparazioneControl extends HttpServlet {
 		
 		try {
 			merceModel.doSave(prodotto);
+			prodotto.setIdProdotto(merceModel.doRetrieveLastKey());
 			riparazioneModel.doSaveRiparazione(prodotto, sqlData, codiceUtente);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

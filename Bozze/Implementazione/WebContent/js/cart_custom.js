@@ -70,7 +70,7 @@ $(document).ready(function()
 
 	3. Init Custom Dropdown
 
-	
+	*/
 
 	function initCustomDropdown()
 	{

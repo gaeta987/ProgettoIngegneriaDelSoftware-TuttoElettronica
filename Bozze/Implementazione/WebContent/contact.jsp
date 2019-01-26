@@ -1,39 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
-    <%
-    String userRoles =(String)session.getAttribute("userRoles");
-    String name = (String)session.getAttribute("name");
-    
-    if(userRoles == null || !userRoles.equalsIgnoreCase("cliente")){
-    	response.sendRedirect("./login.jsp");
-		return;
-    }
-    
-    Cart cart = (Cart) request.getSession().getAttribute("cart");
-    if(cart == null){
-		response.sendRedirect("./CartControl");
-		return;
-	}
-    
-   
-    %>
+pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
+<% 
+String userRoles =(String)session.getAttribute("userRoles");
+String name = (String)session.getAttribute("name");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Cart</title>
+<title>Contact</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="styles/product_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
-<link rel="stylesheet" type="text/css" href="styles/cart_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
+<link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
 
 </head>
 
@@ -185,8 +168,8 @@
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.jsp">Contatti<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="AttivitÃ AccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="AttivitÃ AccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazione<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
 									else if(userRoles.equals("gestoreRiparazioni")){
@@ -280,10 +263,10 @@
 									<a href="prenotaRiparazione.jsp">Commissiona una riparazione<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="AttivitÃ AccountControl?tipoProdotto=prodottoprenotato"">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoprenotato">Visualizza Prenotazione Prodotti<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item">
-									<a href="AttivitÃ AccountControl?tipoProdotto=prodottoinriparazione"">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
+									<a href="AttivitàAccountControl?tipoProdotto=prodottoinriparazione">Visualizza Prenotazione Riparazioni<i class="fa fa-angle-down"></i></a>
 								</li>
 							</ul>
 							<%} %>
@@ -298,84 +281,51 @@
 		</div>
 
 	</header>
+	
+	
 
-	<!-- Cart -->
+	<!-- Contact Info -->
 
-	<div class="cart_section">
+	<div class="contact_info">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
-					<div class="cart_container">
-						<div class="cart_title">Shopping Cart</div>
-						
-						<%
-						List<ProdottoInMagazzinoBean> list = cart.getList();
-						for(ProdottoInMagazzinoBean b : list){
-						%>
-						
-						<div class="cart_items">
-							<ul class="cart_list">
-								<li class="cart_item clearfix">
-									<div class="cart_item_image"><img src="DisplayImage?url=<%=b.getImmagine() %>" alt=""></div>
-									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
-										<div class="cart_item_name cart_info_col">
-											<div class="cart_item_title">Name</div>
-											<div class="cart_item_text"><%=b.getTipo() %> <%=b.getNome() %></div>
-										</div>
-										<div class="cart_item_color cart_info_col">
-											<div class="cart_item_title">Marca</div>
-											<div class="cart_item_text"><%=b.getMarca() %></div>
-										</div>
-										<div class="cart_item_quantity cart_info_col">
-											<div class="cart_item_title">Quantity</div>
-											<div class="cart_item_text"><%=b.getQuantitaNelCarrello() %></div>
-										</div>
-										<div class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Price</div>
-											<div class="cart_item_text"><%=b.getCosto() %></div>
-										</div>
-										<div class="cart_item_total cart_info_col">
-											<div class="cart_item_title">Total</div>
-											<div class="cart_item_text"><%=b.getCosto() * b.getQuantitaNelCarrello() %></div>
-										</div>
-										<div class="cart_item_total cart_info_col">
-											<div class="cart_item_title"></div>
-											<div class="cart_item_text"><a href="CartControl?action=delCart&idProdotto=<%=b.getIdProdotto() %>">Elimina</a></div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<%
-						}
-						%>
-						
-						<!-- Order Total -->
-						<div class="order_total">
-							<div class="order_total_content text-md-right">
-								<div class="order_total_title">Order Total:</div>
-								<%
-								double total = 0;
-								for(int i = 0; i < list.size(); i++){
-									total += list.get(i).getCosto() * list.get(i).getQuantitaNelCarrello();
-								}
-								%>
-								<div class="order_total_amount"><%=total %></div>
+					<div class="contact_info_container d-flex flex-lg-row flex-column justify-content-between align-items-between">
+
+						<!-- Contact Item -->
+						<div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+							<div class="contact_info_image"><img src="images/contact_1.png" alt=""></div>
+							<div class="contact_info_content">
+								<div class="contact_info_title">Telefono</div>
+								<div class="contact_info_text">+39 335 837 8319</div>
 							</div>
 						</div>
-						<form action="Acquisto">
-						<input type="hidden" name="action" value="acquista">
-							<div class="cart_buttons">
-								<button type="submit" class="button cart_button_checkout">Prenota</button>
+
+						<!-- Contact Item -->
+						<div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+							<div class="contact_info_image"><img src="images/contact_2.png" alt=""></div>
+							<div class="contact_info_content">
+								<div class="contact_info_title">Email</div>
+								<div class="contact_info_text">tutto-elettronica@gmail.com</div>
 							</div>
-						</form>
+						</div>
+
+						<!-- Contact Item -->
+						<div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
+							<div class="contact_info_image"><img src="images/contact_3.png" alt=""></div>
+							<div class="contact_info_content">
+								<div class="contact_info_title">Indirizzo</div>
+								<div class="contact_info_text">Via Nazionale 11, Nocera Superiore</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Brands -->
+<!-- Brands -->
 
 	<div class="brands">
 		<div class="container">

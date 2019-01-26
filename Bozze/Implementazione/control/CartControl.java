@@ -26,8 +26,20 @@ public class CartControl extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userRoles =(String)request.getSession().getAttribute("userRoles");
 		
+		 if(userRoles == null || !userRoles.equalsIgnoreCase("cliente")){
+		    	response.sendRedirect("./login.jsp");
+				return;
+		    }
+		 
 		String codiceCliente = (String) request.getSession().getAttribute("codiceFiscale");
+		int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
+		
+		String quantita1 = request.getParameter("quantity");
+		int quantita = 0;
+		if(quantita1 != null && !quantita1.equalsIgnoreCase(""))
+			quantita = Integer.parseInt(quantita1);
 		
 		Cart<ProdottoInMagazzinoBean> cart = (Cart<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
 
@@ -43,8 +55,6 @@ public class CartControl extends HttpServlet {
 			try {
 				 if(action != null) {
 					if(action.equalsIgnoreCase("addCart")) {
-						 int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-						 int quantita = Integer.parseInt(request.getParameter("quantity"));
 						 
 						 cart.setCodiceFiscaleCliente(codiceCliente);
 						 
@@ -62,9 +72,9 @@ public class CartControl extends HttpServlet {
 							 model.doUpdateQuantitaInMagazzino(prodotto.getIdProdotto(), prodotto.getQuantitaInMagazzino());
 							 
 					 } 
-				 }else if(action.equalsIgnoreCase("delCart")) {/*
-					 int id = Integer.parseInt(request.getParameter("id"));
-					 cart.deleteElement(model.doRetrieveByKey(id));*/
+				 }else if(action.equalsIgnoreCase("delCart")) {
+					 ProdottoInMagazzinoBean prodotto = (ProdottoInMagazzinoBean)model.doRetrieveByKey(idProdotto, "prodottoinmagazzino");
+					 cart.deleteElement(prodotto);
 				 }
 				 }
 				 

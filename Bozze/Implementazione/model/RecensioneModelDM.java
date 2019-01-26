@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -16,28 +17,29 @@ public class RecensioneModelDM implements RecensioneModel<Recensioni> {
 	}
 
 	@Override
-	public Collection<Recensioni> doRetrieveByKey(int code) throws SQLException {
+	public Collection<Recensioni> doRetrieveByKey(String codiceCliente) throws SQLException {
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
-		Collection<Recensioni> products=new LinkedList<Recensioni>();
+		Collection<Recensioni> recensioni=new ArrayList<Recensioni>();
 		
-		String selectSQL="SELECT * FROM RECENSIONI WHERE COD_MERCE = ?";
+		String selectSQL="SELECT * FROM RECENSIONI WHERE CF_CLIENTE = ?";
 		
 		try {
 			
 			connection=DriverManagerConnectionPool.getConnection();
 			preparedStatement=connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, code);
+			preparedStatement.setString(1, codiceCliente);
 			ResultSet rs=preparedStatement.executeQuery();
 			
 			while(rs.next()) {
 				Recensioni bean=new Recensioni();
+				bean.setCodiceCliente(codiceCliente);
+				bean.setCodiceProdotto(rs.getInt("cod_merce"));
 				bean.setId(rs.getInt("id"));
-				bean.setVoto(rs.getInt("VOTO"));
-				bean.setCodiceProdotto(rs.getInt("COD_MERCE"));
-				bean.setCodiceCliente(rs.getString("USERNAME_CLIENTE"));
-				bean.setTesto(rs.getString("TESTO"));
-				products.add(bean);
+				bean.setTesto(rs.getString("testo"));
+				bean.setVoto(rs.getInt("voto"));
+				
+				recensioni.add(bean);
 			}
 		}finally {
 			try {
@@ -47,7 +49,7 @@ public class RecensioneModelDM implements RecensioneModel<Recensioni> {
 				DriverManagerConnectionPool.releaseConnection(connection);
 			}
 		}
-		return products;
+		return recensioni;
 	}
 
 	@Override
