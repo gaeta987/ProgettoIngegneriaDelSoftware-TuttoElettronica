@@ -9,11 +9,11 @@ public interface CarrelloManager<T> {
 
 	public Carrello<T> doRetrieveByKey(String codiceCliente) throws SQLException;
 	
-	public void doInsertProdotti(Carrello carrello) throws SQLException;
+	public boolean doInsertProdotti(Carrello carrello) throws SQLException;
 	
-	public void doDeleteProdotti(Carrello carrello) throws SQLException;
+	public boolean doDeleteProdotti(Carrello carrello) throws SQLException;
 
-	public void doPrenota(String codiceCliente, ProdottoInMagazzinoBean prodotto)throws SQLException;
+	public boolean doPrenota(String codiceCliente, ProdottoInMagazzinoBean prodotto)throws SQLException;
 
-	public ArrayList<Integer> doRetrieveAllCode(String username) throws SQLException;
+	
 }

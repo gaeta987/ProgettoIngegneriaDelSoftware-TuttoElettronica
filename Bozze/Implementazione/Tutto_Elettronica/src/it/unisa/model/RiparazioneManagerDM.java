@@ -12,7 +12,7 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 
 
 	@Override
-	public void doUpdateStato(String stato, int idRiparazione) throws SQLException {
+	public boolean doUpdateStato(String stato, int idRiparazione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -28,7 +28,9 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -40,7 +42,7 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 	}
 	
 	@Override
-	public void doUpdateData(Date data, int idPrenotazione) throws SQLException {
+	public boolean doUpdateData(Date data, int idPrenotazione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -56,7 +58,9 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -105,7 +109,7 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 		Connection connection=null;
 		PreparedStatement preparedStatement2 = null;
 		
-		String insertSQL1 = "INSERT INTO PRODOTTOINRIPARAZIONE (IDPR, DATAINCONTRO, CFCLIENTE, STATORIPARAZIONE, DESCRIZIONEPROBLEMA, DATAFINELAVORO) VALUES (?,?,?,?,?,?)";
+		String insertSQL1 = "INSERT INTO PRODOTTOINRIPARAZIONE (IDPR, DATAINCONTRO, CFCLIENTE, STATORIPARAZIONE, DESCRIZIONEPROBLEMA, DATAFINELAVORO, CATEGORIA) VALUES (?,?,?,?,?,?,?)";
 		
 		try {
 			connection = DriverManagerConnectionPool.getConnection();
@@ -116,6 +120,7 @@ public class RiparazioneManagerDM implements RiparazioneManager{
 			preparedStatement2.setString(4, "non riparato");
 			preparedStatement2.setString(5, prodotto.getDescrizione());
 			preparedStatement2.setDate(6, null);
+			preparedStatement2.setString(7, prodotto.getTipo());
 			preparedStatement2.executeUpdate();
 			
 			connection.commit();

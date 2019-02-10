@@ -35,7 +35,9 @@ public class GestisciPromozioneControl extends HttpServlet {
 		String userRoles =(String)request.getSession().getAttribute("userRoles");
 		   
 	    
-	    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreProdotti")){
+		if(userRoles != null || userRoles.equalsIgnoreCase("gestoreProdotti") || userRoles.equals("admin")){
+	    	
+	    }else{
 	    	response.sendRedirect("./login.jsp");
 			return;
 	    }

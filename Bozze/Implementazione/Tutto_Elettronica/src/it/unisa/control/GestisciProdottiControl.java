@@ -36,10 +36,12 @@ public class GestisciProdottiControl extends HttpServlet {
 		 String userRoles =(String)request.getSession().getAttribute("userRoles");
 		   
 		    
-	    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreProdotti")){
-	    	response.sendRedirect("./login.jsp");
-			return;
-	    }
+		 if(userRoles != null || userRoles.equalsIgnoreCase("gestoreProdotti") || userRoles.equals("admin")){
+		    	
+		    }else{
+		    	response.sendRedirect("./login.jsp");
+				return;
+		    }
 	    String action = request.getParameter("action");
 	    String redirectPage= "";
 	    

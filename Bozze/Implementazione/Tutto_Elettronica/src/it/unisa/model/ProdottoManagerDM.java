@@ -206,7 +206,7 @@ public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 */
 	
 	@Override
-	public void doUpdateQuantitaNelCarrello(int codice, int quantita) throws SQLException {
+	public boolean doUpdateQuantitaNelCarrello(int codice, int quantita) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -223,7 +223,9 @@ public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -235,7 +237,7 @@ public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 	}
 	
 	@Override
-	public void doUpdateQuantitaInMagazzino(int codice, int quantita) throws SQLException {
+	public boolean doUpdateQuantitaInMagazzino(int codice, int quantita) throws SQLException {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -252,7 +254,9 @@ public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -303,7 +307,7 @@ public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 		
 		return products;
 	}
-public void doSaveInMagazzino(ProdottoBean prodotto, boolean promo, int quantita) throws SQLException{
+public boolean doSaveInMagazzino(ProdottoBean prodotto, boolean promo, int quantita) throws SQLException{
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 	
@@ -319,7 +323,11 @@ public void doSaveInMagazzino(ProdottoBean prodotto, boolean promo, int quantita
 	
 		preparedStatement.executeUpdate();
 		connection.commit();
+		
+		return true;
 	}catch(Exception e){
+		return false;}
+	finally {
 		try {
 			if(preparedStatement!=null)
 				preparedStatement.close();
@@ -382,6 +390,10 @@ public boolean doDelete(int code) throws SQLException {
 		preparedStatement.executeUpdate();
 		
 		connection.commit();
+		
+		return true;
+	}catch(Exception e){
+		return false;
 	}finally {
 		try {
 			if(preparedStatement!=null)
@@ -390,7 +402,6 @@ public boolean doDelete(int code) throws SQLException {
 			DriverManagerConnectionPool.releaseConnection(connection);
 		}
 	}
-	return false;
 }
 
 
@@ -464,7 +475,7 @@ public Collection<ProdottoInMagazzinoBean> doRetrieveOnSale() throws SQLExceptio
 
 
 @Override
-public void doUpdatePromo(int codice, String tipo) throws SQLException {
+public boolean doUpdatePromo(int codice, String tipo) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
@@ -480,7 +491,9 @@ public void doUpdatePromo(int codice, String tipo) throws SQLException {
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -498,7 +511,9 @@ public void doUpdatePromo(int codice, String tipo) throws SQLException {
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -510,7 +525,7 @@ public void doUpdatePromo(int codice, String tipo) throws SQLException {
 	
 }
 
-public void doUpdatePrezzo(int codice, double nuovoPrezzo) throws SQLException {
+public boolean doUpdatePrezzo(int codice, double nuovoPrezzo) throws SQLException {
 	Connection connection = null;
 	PreparedStatement preparedStatement = null;
 
@@ -524,7 +539,9 @@ public void doUpdatePrezzo(int codice, double nuovoPrezzo) throws SQLException {
 			
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

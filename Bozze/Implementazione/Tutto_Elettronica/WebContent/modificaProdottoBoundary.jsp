@@ -4,7 +4,9 @@
     String userRoles =(String)session.getAttribute("userRoles");
     String name = (String)session.getAttribute("name");
     
-    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreProdotti")){
+if(userRoles != null || userRoles.equalsIgnoreCase("gestoreProdotti") || userRoles.equals("admin")){
+    	
+    }else{
     	response.sendRedirect("./login.jsp");
 		return;
     }
@@ -25,8 +27,6 @@
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-<link rel="stylesheet" type="text/css" href="styles/product_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/cart_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
@@ -61,7 +61,7 @@
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="Prodotti" class="header_search_form clearfix">
+									<form action="RicercaProdottiControl" class="header_search_form clearfix">
 										<input type="search" required="required" class="header_search_input" placeholder="Search for products..." name="search">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
@@ -161,16 +161,16 @@
 								</div>
 
 								<ul class="cat_menu">
-									<li><a href="Categoria?tipo=batterie">Batterie <i class="fas fa-chevron-right ml-auto"></i></a></li>
-									<li><a href="Categoria?tipo=arduino">Arduino<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=componenti">Componenti<i class="fas fa-chevron-right"></i></a>
+									<li><a href="RicercaCategoriaControl?tipo=batterie">Batterie <i class="fas fa-chevron-right ml-auto"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=arduino">Arduino<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=componenti">Componenti<i class="fas fa-chevron-right"></i></a>
 									</li>
-									<li><a href="Categoria?tipo=altoparlanti">Altoparlanti<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=informatica">Informatica<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=attrezzatura">Attrezzatura<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=accessori">Accessori<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=telecomandi">Telecomandi<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=radiocomandi">Radiocomandi<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=altoparlanti">Altoparlanti<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=informatica">Informatica<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=attrezzatura">Attrezzatura<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=accessori">Accessori<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=telecomandi">Telecomandi<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=radiocomandi">Radiocomandi<i class="fas fa-chevron-right"></i></a></li>
 								</ul>
 							</div>
 
@@ -212,12 +212,11 @@
 								else if(userRoles.equals("admin")){
 								%>
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Modifica un prodotto<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Modifica stato riparazione<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Inserisci le date<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Visualizza dati utente<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Modifica ruolo<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="inserisciProdottoBoundary.jsp">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaProdottiControl">Visualizza Prodotti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaRiparazioniControl">Modifica stato riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaDateControl">Inserisci le date<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaDatiControl">Visualizza dati utente<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
 								%>
@@ -317,7 +316,29 @@
 								</li>
 							</ul>
 							<%
-									}
+									}else
+										if(userRoles.equals("admin")){
+											%>
+											<ul class="page_menu_nav">
+								<li class="page_menu_item">
+									<a href="index.jsp">Home<i class="fa fa-angle-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="inserisciProdottoBoundary.jsp">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaRiparazioniControl">Modifica Stato Riparazione<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaDateControl">Inserisci date<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaDatiControl">Visualizza Dati Utente<i class="fas fa-chevron-down"></i></a>
+								</li>
+							</ul>
+											<%
+											
+										}
 							%>
 							<div class="menu_contact">
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+39 335 837 8319</div>

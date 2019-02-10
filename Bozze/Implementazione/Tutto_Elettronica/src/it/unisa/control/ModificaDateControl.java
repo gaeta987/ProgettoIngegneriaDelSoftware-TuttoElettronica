@@ -36,8 +36,9 @@ public class ModificaDateControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userRoles =(String)request.getSession().getAttribute("userRoles");
 	    String codiceFiscale = (String)request.getSession().getAttribute("codiceFiscale");
-	    
-	    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreRiparazioni")){
+	    if(userRoles != null || userRoles.equalsIgnoreCase("gestoreRiparazioni") || userRoles.equals("admin")){
+	    	
+	    }else{
 	    	response.sendRedirect("./login.jsp");
 			return;
 	    }

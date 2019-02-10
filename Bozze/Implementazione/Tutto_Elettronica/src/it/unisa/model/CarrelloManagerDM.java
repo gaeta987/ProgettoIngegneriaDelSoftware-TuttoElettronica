@@ -59,7 +59,7 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 	}
 	
 	
-	public void doInsertProdotti(Carrello carrello) throws SQLException{
+	public boolean doInsertProdotti(Carrello carrello) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -83,8 +83,8 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 			
 			connection.commit();
 			
-			
-		}finally {
+			return true;
+		}catch(Exception e){return false;}finally {
 			try {
 				if(preparedStatement!=null)
 					preparedStatement.close();
@@ -94,7 +94,7 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 		}
 	}
 	
-	public void doDeleteProdotti(Carrello carrello) throws SQLException{
+	public boolean doDeleteProdotti(Carrello carrello) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -107,7 +107,9 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 			preparedStatement.executeUpdate();
 
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -117,7 +119,7 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 		}
 	}
 	
-	public void doPrenota(String codiceCliente, ProdottoInMagazzinoBean prodotto) throws SQLException {
+	public boolean doPrenota(String codiceCliente, ProdottoInMagazzinoBean prodotto) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -132,7 +134,9 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 			preparedStatement.setInt(4, prodotto.getQuantitaNelCarrello());
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -143,33 +147,6 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 		
 	}
 
-	public ArrayList<Integer> doRetrieveAllCode(String codiceCliente) throws SQLException {
-		Connection connection=null;
-		PreparedStatement preparedStatement=null;
-		ArrayList<Integer> products = new ArrayList<Integer>();
-		
-		String selectSQL="SELECT idpm FROM prodottoPrenotato WHERE cfcliente = ?";
-		
-		try {
-			
-			connection=DriverManagerConnectionPool.getConnection();
-			preparedStatement=connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, codiceCliente);
-			
-			ResultSet rs=preparedStatement.executeQuery();
-			while(rs.next()) {
-				products.add(rs.getInt("idpm"));	
-			}
-		}finally {
-			try {
-				if(preparedStatement!=null)
-					preparedStatement.close();
-			}finally {
-				DriverManagerConnectionPool.releaseConnection(connection);
-			}
-		}
-		
-		return products;
-	}
+	
 
 }

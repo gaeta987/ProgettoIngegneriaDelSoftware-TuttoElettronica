@@ -17,7 +17,7 @@ public class RecensioneManagerDM implements RecensioneManager<Recensionie> {
 	}
 
 	@Override
-	public void doSave(Recensionie recensione) throws SQLException {
+	public boolean doSave(Recensionie recensione) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -32,7 +32,9 @@ public class RecensioneManagerDM implements RecensioneManager<Recensionie> {
 			preparedStatement.setInt(4, recensione.getVoto());
 			preparedStatement.executeUpdate();
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();

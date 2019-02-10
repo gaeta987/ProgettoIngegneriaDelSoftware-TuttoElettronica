@@ -62,7 +62,7 @@ if(prodottiOnSale == null){
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="Prodotti" class="header_search_form clearfix">
+									<form action="RicercaProdottiControl" class="header_search_form clearfix">
 										<input type="search" required="required" class="header_search_input" placeholder="Search for products..." name="search">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
@@ -162,16 +162,16 @@ if(prodottiOnSale == null){
 								</div>
 
 								<ul class="cat_menu">
-									<li><a href="Categoria?tipo=batterie">Batterie <i class="fas fa-chevron-right ml-auto"></i></a></li>
-									<li><a href="Categoria?tipo=arduino">Arduino<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=componenti">Componenti<i class="fas fa-chevron-right"></i></a>
+									<li><a href="RicercaCategoriaControl?tipo=batterie">Batterie <i class="fas fa-chevron-right ml-auto"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=arduino">Arduino<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=componenti">Componenti<i class="fas fa-chevron-right"></i></a>
 									</li>
-									<li><a href="Categoria?tipo=altoparlanti">Altoparlanti<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=informatica">Informatica<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=attrezzatura">Attrezzatura<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=accessori">Accessori<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=telecomandi">Telecomandi<i class="fas fa-chevron-right"></i></a></li>
-									<li><a href="Categoria?tipo=radiocomandi">Radiocomandi<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=altoparlanti">Altoparlanti<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=informatica">Informatica<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=attrezzatura">Attrezzatura<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=accessori">Accessori<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=telecomandi">Telecomandi<i class="fas fa-chevron-right"></i></a></li>
+									<li><a href="RicercaCategoriaControl?tipo=radiocomandi">Radiocomandi<i class="fas fa-chevron-right"></i></a></li>
 								</ul>
 							</div>
 
@@ -213,10 +213,10 @@ if(prodottiOnSale == null){
 								else if(userRoles.equals("admin")){
 								%>
 									<li><a href="index.jsp">Home<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Modifica un prodotto<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Modifica stato riparazione<i class="fas fa-chevron-down"></i></a></li>
-									<li><a href="#">Inserisci le date<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="inserisciProdottoBoundary.jsp">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaProdottiControl">Visualizza Prodotti<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaRiparazioniControl">Modifica stato riparazione<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="VisualizzaDateControl">Inserisci le date<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="VisualizzaDatiControl">Visualizza dati utente<i class="fas fa-chevron-down"></i></a></li>
 								<%
 									}
@@ -317,7 +317,29 @@ if(prodottiOnSale == null){
 								</li>
 							</ul>
 							<%
-									}
+									}else
+										if(userRoles.equals("admin")){
+											%>
+											<ul class="page_menu_nav">
+								<li class="page_menu_item">
+									<a href="index.jsp">Home<i class="fa fa-angle-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="inserisciProdottoBoundary.jsp">Inserisci un prodotto<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaRiparazioniControl">Modifica Stato Riparazione<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaDateControl">Inserisci date<i class="fas fa-chevron-down"></i></a>
+								</li>
+								<li class="page_menu_item">
+									<a href="VisualizzaDatiControl">Visualizza Dati Utente<i class="fas fa-chevron-down"></i></a>
+								</li>
+							</ul>
+											<%
+											
+										}
 							%>
 							<div class="menu_contact">
 								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+39 335 837 8319</div>
@@ -341,9 +363,9 @@ if(prodottiOnSale == null){
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
 						<h1 class="banner_text">new era </h1>
-						<div class="banner_price"><span>$150</span>$100</div>
+						<div class="banner_price"><span>50&euro;</span>30&euro;</div>
 						<div class="banner_product_name">Arduino UNO</div>
-						<div class="button banner_button"><a href="Prodotti?search=arduino">Shop Now</a></div>
+						<div class="button banner_button"><a href="RicercaProdottiControl?search=arduino">Shop</a></div>
 					</div>
 				</div>
 			</div>
@@ -379,7 +401,7 @@ if(prodottiOnSale == null){
 									<div class="featured_slider_item">
 										<div class="border_active"></div>
 										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="DisplayImage?url=<%=prodottiOnSale.get(i).getImmagine() %>" alt=""></div>
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="${pageContext.request.contextPath}/ImageProxyController?name=<%=prodottiOnSale.get(i).getImmagine()%>"></div>
 											<div class="product_content">
 												<div class="product_price discount"><%=prodottiOnSale.get(i).getCosto() - 5 %>&euro;<span><%=prodottiOnSale.get(i).getCosto() %>&euro;</span></div>
 												<div class="product_name"><div><a href="product.html"><%=prodottiOnSale.get(i).getNome() %></a></div></div>

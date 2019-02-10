@@ -35,7 +35,9 @@ public class VisualizzaRiparazioniControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userRoles =(String)request.getSession().getAttribute("userRoles");
 	    
-	    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreRiparazioni")){
+		if(userRoles != null || userRoles.equalsIgnoreCase("gestoreRiparazioni") || userRoles.equals("admin")){
+	    	
+	    }else{
 	    	response.sendRedirect("./login.jsp");
 			return;
 	    }

@@ -23,7 +23,7 @@ public class DriverManagerConnectionPool  {
 		Connection newConnection = null;
 		String ip = "localhost";
 		String port = "3306";
-		String db = "tuttoElettronica";
+		String db = "tuttoElettronica?useSSL=false";
 		String username = "root";
 		String password = "150315";
 

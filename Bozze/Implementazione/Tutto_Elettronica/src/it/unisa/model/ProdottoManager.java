@@ -10,9 +10,9 @@ public interface ProdottoManager<T> {
 	
 	public Collection<ProdottoInMagazzinoBean> doRetrieveAll()throws SQLException;
 	
-	public void doUpdateQuantitaNelCarrello(int codice, int quantita)throws SQLException;
+	public boolean doUpdateQuantitaNelCarrello(int codice, int quantita)throws SQLException;
 	
-	public void doUpdateQuantitaInMagazzino(int codice, int quantita)throws SQLException;
+	public boolean doUpdateQuantitaInMagazzino(int codice, int quantita)throws SQLException;
 	
 	public boolean doDelete(int code)throws SQLException;
 	
@@ -24,9 +24,9 @@ public interface ProdottoManager<T> {
 	
 	public Collection<ProdottoInMagazzinoBean> doRetrieveOnSale() throws SQLException;
 	
-	public void doSaveInMagazzino(ProdottoBean prodotto, boolean promo, int quantita)throws SQLException;
+	public boolean doSaveInMagazzino(ProdottoBean prodotto, boolean promo, int quantita)throws SQLException;
 	
-	public void doUpdatePromo(int codice, String tipo) throws SQLException;
+	public boolean doUpdatePromo(int codice, String tipo) throws SQLException;
 	
-	public void doUpdatePrezzo(int codice, double nuovoPrezzo) throws SQLException;
+	public boolean doUpdatePrezzo(int codice, double nuovoPrezzo) throws SQLException;
 }

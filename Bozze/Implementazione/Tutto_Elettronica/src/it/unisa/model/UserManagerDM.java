@@ -93,7 +93,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 	}
 
 	@Override
-	public void doSave(UserBean cliente) throws SQLException {
+	public boolean doSave(UserBean cliente) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -117,7 +117,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 			
 			
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null) {
 					preparedStatement.close();
@@ -129,7 +131,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 		
 	}
 
-	public void doSaveClienteRegistrato(UserBean cliente) throws SQLException{
+	public boolean doSaveClienteRegistrato(UserBean cliente) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -145,7 +147,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null) {
 					preparedStatement.close();
@@ -264,7 +268,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 
 
 	@Override
-	public void doDelete(String cf) throws SQLException {
+	public boolean doDelete(String cf) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement2 = null;
@@ -285,7 +289,10 @@ public class UserManagerDM implements UserManager<UserBean> {
 			preparedStatement.executeUpdate();
 
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) { return false;}
+				finally {
 			try {
 				if (preparedStatement2 != null)
 					preparedStatement2.close();
@@ -298,7 +305,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 
 
 	@Override
-	public void doUpdatePassword(String user, String pass) throws SQLException {
+	public boolean doUpdatePassword(String user, String pass) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -314,7 +321,8 @@ public class UserManagerDM implements UserManager<UserBean> {
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
-		} finally {
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
@@ -326,7 +334,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 	}
 
 	@Override
-	public void doUpdateEmail(String codiceUtente, String email) throws SQLException {
+	public boolean doUpdateEmail(String codiceUtente, String email) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -342,19 +350,22 @@ public class UserManagerDM implements UserManager<UserBean> {
 			preparedStatement.executeUpdate();
 			
 			connection.commit();
-		} finally {
+			
+			return true;
+		}catch(Exception e) {return false;} finally {
 			try {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
 				DriverManagerConnectionPool.releaseConnection(connection);
+				
 			}
 		}
 		
 	}
 
 	@Override
-	public void doUpdateDateGestore(String codiceFiscale, Date nuovaData, String attributo) throws SQLException {
+	public boolean doUpdateDateGestore(String codiceFiscale, Date nuovaData, String attributo) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -371,7 +382,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 				preparedStatement.executeUpdate();
 				
 				connection.commit();
-			} finally {
+				
+				return true;
+			}catch(Exception e) {return false;} finally {
 				try {
 					if (preparedStatement != null)
 						preparedStatement.close();
@@ -391,7 +404,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 					preparedStatement.executeUpdate();
 					
 					connection.commit();
-				} finally {
+					
+					return true;
+				}catch(Exception e) {return false;} finally {
 					try {
 						if (preparedStatement != null)
 							preparedStatement.close();
@@ -410,7 +425,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 					preparedStatement.executeUpdate();
 					
 					connection.commit();
-				} finally {
+					
+					return true;
+				}catch(Exception e) {return false;} finally {
 					try {
 						if (preparedStatement != null)
 							preparedStatement.close();
@@ -423,7 +440,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 	}
 
 	@Override
-	public void doUpdateCliente(UserBean cliente, String ruolo) throws SQLException {
+	public boolean doUpdateCliente(UserBean cliente, String ruolo) throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		PreparedStatement preparedStatement2 = null;
@@ -478,7 +495,9 @@ public class UserManagerDM implements UserManager<UserBean> {
 					
 					connection.commit();
 				}
-			} finally {
+				
+				return true;
+			}catch(Exception e) {return false;} finally {
 				try {
 					if (preparedStatement != null)
 						preparedStatement.close();

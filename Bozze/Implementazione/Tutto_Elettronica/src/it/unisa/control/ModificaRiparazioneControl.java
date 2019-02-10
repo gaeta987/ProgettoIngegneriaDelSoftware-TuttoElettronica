@@ -38,7 +38,9 @@ public class ModificaRiparazioneControl extends HttpServlet {
 		String userRoles =(String)request.getSession().getAttribute("userRoles");
 	    String data = request.getParameter("data");
 		
-	    if(userRoles == null || !userRoles.equalsIgnoreCase("gestoreRiparazioni")){
+	    if(userRoles != null || userRoles.equalsIgnoreCase("gestoreRiparazioni") || userRoles.equals("admin")){
+	    	
+	    }else{
 	    	response.sendRedirect("./login.jsp");
 			return;
 	    }
