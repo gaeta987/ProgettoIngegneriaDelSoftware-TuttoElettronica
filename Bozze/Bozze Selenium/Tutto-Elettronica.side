@@ -1,0 +1,202 @@
+{
+  "id": "60a677ce-825f-45eb-867a-4d1fd41e1fb0",
+  "version": "2.0",
+  "name": "Tutto-Elettronica",
+  "url": "http://localhost:8085",
+  "tests": [{
+    "id": "ee8b4471-3b1d-4ab5-a094-3f1239c18055",
+    "name": "registrazione1",
+    "commands": [{
+      "id": "725693e7-ac2b-4a09-a0f9-4cce77852544",
+      "comment": "",
+      "command": "open",
+      "target": "/Tutto_Elettronica/login.jsp",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0ae76591-ae8d-4f1d-b628-b75f7be28d58",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x744",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2f75f60d-4eab-41da-8417-09796fc75a18",
+      "comment": "",
+      "command": "click",
+      "target": "name=username",
+      "targets": [
+        ["name=username", "name"],
+        ["css=form:nth-child(5) > .tableRow2:nth-child(3) input", "css:finder"],
+        ["css=input[name=\"username\"]", "css"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div/p[2]/input", "xpath:idRelative"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5029267a-3005-4e2d-beeb-c79194257cd1",
+      "comment": "",
+      "command": "type",
+      "target": "name=username",
+      "targets": [
+        ["name=username", "name"],
+        ["css=form:nth-child(5) > .tableRow2:nth-child(3) input", "css:finder"],
+        ["css=input[name=\"username\"]", "css"],
+        ["xpath=//input[@name='username']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div/p[2]/input", "xpath:idRelative"],
+        ["xpath=//p[2]/input", "xpath:position"]
+      ],
+      "value": "Raff97"
+    }, {
+      "id": "c409f3eb-b54c-483b-83ee-9c8a2657b0d0",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.tableRow2:nth-child(4) input", "css:finder"],
+        ["css=input[name=\"password\"]", "css"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[2]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Universita95"
+    }, {
+      "id": "851c55ce-cdad-4992-8fdb-fd3ec2181bb0",
+      "comment": "",
+      "command": "type",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=.tableRow2:nth-child(5) input", "css:finder"],
+        ["css=input[name=\"nome\"]", "css"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[3]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Raffae"
+    }, {
+      "id": "65a9b3cd-f15d-4191-8f4b-aaf55ebf727d",
+      "comment": "",
+      "command": "type",
+      "target": "name=cognome",
+      "targets": [
+        ["name=cognome", "name"],
+        ["css=.tableRow2:nth-child(6) input", "css:finder"],
+        ["css=input[name=\"cognome\"]", "css"],
+        ["xpath=//input[@name='cognome']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[4]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Raffaele"
+    }, {
+      "id": "73473e59-a46b-4f66-aadb-da31594e52a5",
+      "comment": "",
+      "command": "type",
+      "target": "name=cognome",
+      "targets": [
+        ["name=cognome", "name"],
+        ["css=.tableRow2:nth-child(6) input", "css:finder"],
+        ["css=input[name=\"cognome\"]", "css"],
+        ["xpath=//input[@name='cognome']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[4]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[4]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Villani"
+    }, {
+      "id": "c6d17431-9081-470a-93a0-1ead67d9ccee",
+      "comment": "",
+      "command": "type",
+      "target": "name=cf",
+      "targets": [
+        ["name=cf", "name"],
+        ["css=.tableRow2:nth-child(7) input", "css:finder"],
+        ["css=input[name=\"cf\"]", "css"],
+        ["xpath=//input[@name='cf']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[5]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[5]/p[2]/input", "xpath:position"]
+      ],
+      "value": "SSSGPP95E10H703E"
+    }, {
+      "id": "2b5246b9-6ed9-46ac-9308-1e7be174d6ea",
+      "comment": "",
+      "command": "type",
+      "target": "name=email",
+      "targets": [
+        ["name=email", "name"],
+        ["css=.tableRow2:nth-child(8) input", "css:finder"],
+        ["css=input[name=\"email\"]", "css"],
+        ["xpath=//input[@name='email']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[6]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[6]/p[2]/input", "xpath:position"]
+      ],
+      "value": "giuseppe@hotmail.it"
+    }, {
+      "id": "4698b93e-ac4a-406e-850f-5f4d62eac36d",
+      "comment": "",
+      "command": "type",
+      "target": "name=indirizzo",
+      "targets": [
+        ["name=indirizzo", "name"],
+        ["css=.tableRow2:nth-child(9) input", "css:finder"],
+        ["css=input[name=\"indirizzo\"]", "css"],
+        ["xpath=//input[@name='indirizzo']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[7]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[7]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Nocera Via Iroma 105"
+    }, {
+      "id": "3e7f7847-3c05-4a72-b542-f583f4e7583c",
+      "comment": "",
+      "command": "click",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=.tableRow2:nth-child(5) input", "css:finder"],
+        ["css=input[name=\"nome\"]", "css"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[3]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "450bb8ec-fdb2-4c01-8eb8-489445786a88",
+      "comment": "",
+      "command": "type",
+      "target": "name=nome",
+      "targets": [
+        ["name=nome", "name"],
+        ["css=.tableRow2:nth-child(5) input", "css:finder"],
+        ["css=input[name=\"nome\"]", "css"],
+        ["xpath=//input[@name='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[3]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/p[2]/input", "xpath:position"]
+      ],
+      "value": "Raffaele"
+    }, {
+      "id": "03c544c0-4a63-4262-8e3b-8708954dcc36",
+      "comment": "",
+      "command": "click",
+      "target": "css=.tableRow2:nth-child(10) input",
+      "targets": [
+        ["css=.tableRow2:nth-child(10) input", "css:finder"],
+        ["css=input[type=\"submit\"]", "css"],
+        ["xpath=//input[@value='Registrati']", "xpath:attributes"],
+        ["xpath=//div[@id='registrazione']/fieldset/form/div[8]/p[2]/input", "xpath:idRelative"],
+        ["xpath=//div[8]/p[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "e12b562b-7a8b-420e-9102-17e02d769ca7",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["ee8b4471-3b1d-4ab5-a094-3f1239c18055"]
+  }],
+  "urls": ["http://localhost:8085/"],
+  "plugins": []
+}
