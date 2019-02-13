@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.bean.Recensionie;
 import it.unisa.model.RecensioneManager;
 import it.unisa.model.RecensioneManagerDM;
-import it.unisa.model.Recensionie;
 
 /**
  * Servlet implementation class RecensioneControl

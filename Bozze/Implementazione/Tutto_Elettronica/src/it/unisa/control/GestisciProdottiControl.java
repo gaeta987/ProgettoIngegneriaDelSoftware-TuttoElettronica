@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.bean.ProdottoBean;
 import it.unisa.model.ProdottoManager;
 import it.unisa.model.ProdottoManagerDM;
-import it.unisa.model.ProdottoBean;
 
 /**
  * Servlet implementation class GestisciProdottiControl

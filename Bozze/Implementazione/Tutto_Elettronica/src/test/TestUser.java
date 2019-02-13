@@ -8,11 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unisa.model.Carrello;
+import it.unisa.bean.CarrelloBean;
 import it.unisa.model.CarrelloManagerDM;
-import it.unisa.model.ProdottoBean;
-import it.unisa.model.ProdottoInMagazzinoBean;
-import it.unisa.model.UserBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+import it.unisa.bean.UserBean;
 import it.unisa.model.UserManagerDM;
 import junit.framework.TestCase;
 
@@ -67,11 +67,11 @@ public class TestUser extends TestCase {
 	
 	@Test
 	public void testDoRetrieveAll() throws Exception{
-		UserBean user = usr.doRetrieveByKey("CMPGTN95A01C361B");
+		UserBean user = usr.doRetrieveByKey("CMMGTN80A01C361B");
 		
 		ArrayList<UserBean> coll =  (ArrayList<UserBean>) usr.doRetrieveAll();
 		
-		assertEquals(user.getCf(),coll.get(4).getCf());
+		assertEquals(user.getCf(),coll.get(1).getCf());
 	}
 	
 	@Test
@@ -122,25 +122,25 @@ public class TestUser extends TestCase {
 	
 	@Test
 	public void testDoUpdatePassword() throws Exception{
-		UserBean user = usr.doRetrieveByKey("CMPGTN95A01C361B");
+		UserBean user = usr.doRetrieveByKey("CMMGTN80A01C361B");
 		
 		usr.doUpdatePassword(user.getCf(), "123456");
 		
-		assertEquals("123456", usr.doRetrieveByKey("CMPGTN95A01C361B").getPassword());
+		assertEquals("123456", usr.doRetrieveByKey("CMMGTN80A01C361B").getPassword());
 	}
 	
 	@Test
 	public void testDoUpdateEmail() throws Exception{
-		UserBean user = usr.doRetrieveByKey("CMPGTN95A01C361B");
+		UserBean user = usr.doRetrieveByKey("CMMGTN80A01C361B");
 		
 		usr.doUpdateEmail(user.getCf(), "boh@gmail.com");
 		
-		assertEquals("boh@gmail.com", usr.doRetrieveByKey("CMPGTN95A01C361B").getEmail());
+		assertEquals("boh@gmail.com", usr.doRetrieveByKey("CMMGTN80A01C361B").getEmail());
 	}
 
 	
 	
-	@Test
+/*	@Test
 	public void testDoUpdateDateGestore() throws Exception{
 		
 
@@ -154,8 +154,8 @@ public class TestUser extends TestCase {
 		
 		
 		
-		assertEquals(true, usr.doUpdateDateGestore("CMNGTN80A01C361Z", sqlData, "data1"));
-	}    
+		assertEquals(true, usr.doUpdateDateGestore("CMMGTN80A01C361Z", sqlData, "data1"));
+	}    */
 
 	@Test
 	public void testDoRetrieveByCodiceFiscale() throws Exception{
@@ -164,12 +164,12 @@ public class TestUser extends TestCase {
 		assertEquals(1,coll.get(0).getIdProdotto());
 	}  
 
-	@Test
+/*	@Test
 	public void testDoUpdateCliente()throws Exception{
 		UserBean user = usr.doRetrieveByKey("CMMGTN80A01C361V");
 		
+		usr.doUpdateCliente(user, "gestoreProdotti");
 		
-		
-		assertEquals(true ,usr.doUpdateCliente(user, "gestoreProdotti"));
-	}      
+		assertEquals("gestoreProdotti",usr.doRetrieveByKey("CMMGTN80A01C361V").getRuolo());
+	}   */   
 }

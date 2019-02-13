@@ -105,7 +105,7 @@ String name = (String)session.getAttribute("name");
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -125,7 +125,7 @@ String name = (String)session.getAttribute("name");
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -357,7 +357,7 @@ String name = (String)session.getAttribute("name");
 						<h1 class="banner_text">new era </h1>
 						<div class="banner_price"><span>$150</span>$100</div>
 						<div class="banner_product_name">Arduino UNO</div>
-						<div class="button banner_button"><a href="Prodotti?search=arduino">Shop Now</a></div>
+						<div class="button banner_button"><a href="Prodotti?search=arduino">Shop</a></div>
 					</div>
 				</div>
 			</div>
@@ -416,7 +416,7 @@ String name = (String)session.getAttribute("name");
 							<p>Insert Password: </p><p><input type="password" name="password" required></p>
 							</div>
 							<div class="tableRow2">
-							<p></p><p><input type="submit" value="Login" ></p>
+							<p></p><p><input type="submit" value="Login" onClick="return ValidateLogin(this.form)" ></p>
 							</div>
 						</form>
 					

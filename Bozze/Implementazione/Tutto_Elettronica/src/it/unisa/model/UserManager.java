@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.UserBean;
+
 public interface UserManager<T> {
 	
 	public T doRetrieveUtente(String username,String Password)throws SQLException;

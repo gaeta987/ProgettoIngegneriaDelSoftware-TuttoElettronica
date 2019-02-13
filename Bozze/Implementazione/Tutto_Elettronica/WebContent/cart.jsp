@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
+    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*, it.unisa.bean.*"%>
     <%
     String userRoles =(String)session.getAttribute("userRoles");
     String name = (String)session.getAttribute("name");
@@ -9,7 +9,7 @@
 		return;
     }
     
-    Carrello cart = (Carrello) request.getSession().getAttribute("cart");
+    CarrelloBean cart = (CarrelloBean) request.getSession().getAttribute("cart");
     if(cart == null){
 		response.sendRedirect("./CartControl");
 		return;
@@ -36,6 +36,7 @@
 <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<script type="text/javascript" src="js/validation.js"></script>
 
 </head>
 
@@ -117,7 +118,7 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -137,7 +138,7 @@
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -374,7 +375,7 @@
 						<div class="cart_items">
 							<ul class="cart_list">
 								<li class="cart_item clearfix">
-									<div class="cart_item_image"><img src="${pageContext.request.contextPath}/ImageProxyController?name=<%=b.getImmagine()%>"></div>
+									<div class="cart_item_image"><img src="${pageContext.request.contextPath}/ImageProxyController?name=<%=b.getImmagine()%>" style="width:100px;height:150px;"></div>
 									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
 										<div class="cart_item_name cart_info_col">
 											<div class="cart_item_title">Nome</div>
@@ -423,8 +424,9 @@
 						</div>
 						<form action="PrenotaControl">
 						<input type="hidden" name="action" value="acquista">
+						<input type="hidden" name="sizeCarrello" value="<%=cart.getList().size() %>">
 							<div class="cart_buttons">
-								<button type="submit" class="button cart_button_checkout">Prenota</button>
+								<button type="submit" class="button cart_button_checkout" onClick="return prenota(this.form)">Prenota</button>
 							</div>
 						</form>
 					</div>

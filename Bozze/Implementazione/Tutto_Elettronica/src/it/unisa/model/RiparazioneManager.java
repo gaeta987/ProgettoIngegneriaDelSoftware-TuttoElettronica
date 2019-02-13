@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInRiparazioneBean;
+
 public interface RiparazioneManager  {
 	
 	public boolean doUpdateData(Date data, int idRiparazione) throws SQLException;

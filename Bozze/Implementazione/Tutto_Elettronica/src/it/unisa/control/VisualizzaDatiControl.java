@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import it.unisa.model.UserBean;
+import it.unisa.bean.UserBean;
 import it.unisa.model.UserManager;
 import it.unisa.model.UserManagerDM;
 

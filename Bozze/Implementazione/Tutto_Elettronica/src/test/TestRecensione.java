@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.unisa.model.RecensioneManagerDM;
-import it.unisa.model.Recensionie;
-import it.unisa.model.UserBean;
+import it.unisa.bean.Recensionie;
+import it.unisa.bean.UserBean;
 import it.unisa.model.UserManagerDM;
 import junit.framework.TestCase;
 

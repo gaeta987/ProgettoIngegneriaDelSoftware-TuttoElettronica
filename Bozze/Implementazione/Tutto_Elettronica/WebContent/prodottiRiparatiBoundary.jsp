@@ -1,5 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
+    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*, it.unisa.bean.*, java.text.SimpleDateFormat"%>
     <%
     String userRoles =(String)session.getAttribute("userRoles");
     String name = (String)session.getAttribute("name");
@@ -111,7 +112,7 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -131,7 +132,7 @@
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -361,7 +362,15 @@
 					<div class="cart_container">
 						
 						<%
+						String fineLavoro = "";
 						for(int i = 0; i < prodottiDaVisualizzare.size(); i++){
+							if(prodottiDaVisualizzare.get(i).getDataFineLavoro() == null)
+								fineLavoro = "Non Stimata";
+							else{
+								SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+								fineLavoro = df.format(prodottiDaVisualizzare.get(i).getDataFineLavoro());
+							}
+								
 						%>
 						<div class="cart_items">
 							<ul class="cart_list">
@@ -382,6 +391,10 @@
 										<div class="cart_item_total cart_info_col">
 											<div class="cart_item_title">Data Incontro</div>
 											<div class="cart_item_text"><%=prodottiDaVisualizzare.get(i).getDataIncontro() %></div>
+										</div>
+										<div class="cart_item_total cart_info_col">
+											<div class="cart_item_title">Data Fine Riparazione</div>
+											<div class="cart_item_text"><%=fineLavoro%></div>
 										</div>
 									</div>
 								</li>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.model.MyCript;
 import it.unisa.model.UserManager;
 import it.unisa.model.UserManagerDM;
 
@@ -43,6 +44,7 @@ public class ModificaDettagliControl extends HttpServlet {
 		String nuovaPassword = request.getParameter("password");
 		String codiceFiscale = (String)request.getSession().getAttribute("codiceFiscale");
 		
+		String cript = MyCript.encrypt(nuovaPassword);
 		if(nuovaMail != null && !nuovaMail.equalsIgnoreCase("")) {
 			try {
 				clienteModel.doUpdateEmail(codiceFiscale, nuovaMail);
@@ -53,7 +55,7 @@ public class ModificaDettagliControl extends HttpServlet {
 		}
 		if(nuovaPassword != null && !nuovaPassword.equalsIgnoreCase("")) {
 			try {
-				clienteModel.doUpdatePassword(codiceFiscale, nuovaPassword);
+				clienteModel.doUpdatePassword(codiceFiscale, cript);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

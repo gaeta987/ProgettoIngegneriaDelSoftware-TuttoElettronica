@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
+    pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*, it.unisa.bean.*"%>
     <%
     String userRoles =(String)session.getAttribute("userRoles");
     String name = (String)session.getAttribute("name");
@@ -133,7 +133,7 @@ function visualizza1(id){
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -153,7 +153,7 @@ function visualizza1(id){
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -430,6 +430,9 @@ function visualizza1(id){
 							</ul>
 						</div>
 						
+						<%
+						if(!(prodotti.size() == 0)){
+						%>
 						<div class="cart_items">
 							<ul class="cart_list">
 								<li class="cart_item clearfix">
@@ -464,6 +467,10 @@ function visualizza1(id){
 								</li>
 							</ul>
 						</div>
+						
+						<%
+						}
+						%>
 						
 					</div>
 				</div>

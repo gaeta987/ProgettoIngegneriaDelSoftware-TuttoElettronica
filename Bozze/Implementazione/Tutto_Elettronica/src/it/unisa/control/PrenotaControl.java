@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import it.unisa.model.Carrello;
+import it.unisa.bean.CarrelloBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.CarrelloManager;
 import it.unisa.model.CarrelloManagerDM;
 import it.unisa.model.ProdottoManager;
 import it.unisa.model.ProdottoManagerDM;
-import it.unisa.model.ProdottoBean;
-import it.unisa.model.ProdottoInMagazzinoBean;
 
 @WebServlet("/PrenotaControl")
 public class PrenotaControl extends HttpServlet {
@@ -40,7 +40,7 @@ public class PrenotaControl extends HttpServlet {
 		    }
 		 
 		String codiceCliente = (String)request.getSession().getAttribute("codiceFiscale");
-		Carrello<ProdottoInMagazzinoBean> cart = (Carrello<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");;
+		CarrelloBean<ProdottoInMagazzinoBean> cart = (CarrelloBean<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");;
 		
 		HttpSession session = request.getSession();
 		

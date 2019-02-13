@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.bean.Recensionie;
+
 
 
 public class RecensioneManagerDM implements RecensioneManager<Recensionie> {

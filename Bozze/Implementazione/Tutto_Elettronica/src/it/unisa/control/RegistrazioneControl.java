@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.UserBean;
+import it.unisa.bean.UserBean;
+import it.unisa.model.MyCript;
 import it.unisa.model.UserManager;
 import it.unisa.model.UserManagerDM;
 
@@ -41,13 +42,15 @@ public class RegistrazioneControl extends HttpServlet {
 		String email = request.getParameter("email");
 		String indirizzo = request.getParameter("indirizzo");
 		
+		String cript = MyCript.encrypt(password);
+		
 		UserBean cliente = new UserBean();
 		cliente.setCf(cf);
 		cliente.setCognome(cognome);
 		cliente.setEmail(email);
 		cliente.setIndirizzo(indirizzo);
 		cliente.setNome(nome);
-		cliente.setPassword(password);
+		cliente.setPassword(cript);
 		cliente.setRuolo("cliente");
 		cliente.setUsername(username);
 		

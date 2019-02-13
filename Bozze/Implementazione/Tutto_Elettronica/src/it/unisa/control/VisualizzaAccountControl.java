@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.UserBean;
+import it.unisa.bean.UserBean;
 import it.unisa.model.UserManager;
 import it.unisa.model.UserManagerDM;
 

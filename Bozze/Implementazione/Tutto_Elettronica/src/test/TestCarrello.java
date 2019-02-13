@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unisa.model.Carrello;
+import it.unisa.bean.CarrelloBean;
 import it.unisa.model.CarrelloManagerDM;
-import it.unisa.model.ProdottoInMagazzinoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.ProdottoManagerDM;
 import junit.framework.TestCase;
 
@@ -33,11 +33,11 @@ public class TestCarrello extends TestCase {
 	
 	@Test
 	public void testDoRetrieveByKey() throws Exception{
-		Carrello carrello = new Carrello();
+		CarrelloBean carrello = new CarrelloBean();
 		
 		carrello.setId(1);
 		
-		Carrello result = crm.doRetrieveByKey("CMMGTN80A01C361Z");
+		CarrelloBean result = crm.doRetrieveByKey("CMMGTN80A01C361Z");
 		
 		assertEquals(carrello.getId(), result.getId());
 		
@@ -45,7 +45,7 @@ public class TestCarrello extends TestCase {
 	
 	@Test
 	public void testDoInsertProdotti() throws Exception{
-		Carrello carrello = new Carrello();
+		CarrelloBean carrello = new CarrelloBean();
 		ProdottoInMagazzinoBean prodottoMagazzino = new ProdottoInMagazzinoBean();
 		prodottoMagazzino.setCosto(10);
 		prodottoMagazzino.setDescrizione("ciao sono arduino");
@@ -64,7 +64,7 @@ public class TestCarrello extends TestCase {
 		crm.doInsertProdotti(carrello);
 		
 		
-		Carrello result = crm.doRetrieveByKey("CMMGTN80A01C361B");
+		CarrelloBean result = crm.doRetrieveByKey("CMMGTN80A01C361B");
 		
 		
 		assertEquals(carrello.getElement(prodottoMagazzino), result.getElement(prodottoMagazzino));
@@ -72,7 +72,7 @@ public class TestCarrello extends TestCase {
 
 	@Test
 	public void testDoDeleteProdotti() throws Exception{
-		Carrello carrello = new Carrello();
+		CarrelloBean carrello = new CarrelloBean();
 		
 		carrello = crm.doRetrieveByKey("CMMGTN80A01C361X");
 		
@@ -82,7 +82,7 @@ public class TestCarrello extends TestCase {
 	
 	@Test
 	public void testDoPrenota() throws Exception{
-		Carrello carrello = new Carrello();
+		CarrelloBean carrello = new CarrelloBean();
 		
 		carrello = crm.doRetrieveByKey("CMMGTN80A01C361Z");
 		

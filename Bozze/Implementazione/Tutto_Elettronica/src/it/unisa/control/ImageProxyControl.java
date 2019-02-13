@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import proxy.ProxyImage;
+import it.unisa.proxy.ProxyImage;
 
 /**
  * Servlet implementation class ImageProxy

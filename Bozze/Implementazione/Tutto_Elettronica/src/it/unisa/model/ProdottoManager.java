@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+
 public interface ProdottoManager<T> {
 	
 	public T doRetrieveByKey(int code, String tipo)throws SQLException;

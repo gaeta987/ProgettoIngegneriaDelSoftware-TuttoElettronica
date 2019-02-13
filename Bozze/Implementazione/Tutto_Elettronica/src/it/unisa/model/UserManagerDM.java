@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInRiparazioneBean;
+import it.unisa.bean.ProdottoPrenotatoBean;
+import it.unisa.bean.UserBean;
 import it.unisa.model.DriverManagerConnectionPool;
 
 public class UserManagerDM implements UserManager<UserBean> {
@@ -25,7 +29,7 @@ public class UserManagerDM implements UserManager<UserBean> {
 		UserBean bean = new UserBean();
 		
 		String selectSQL = "SELECT * FROM CLIENTE WHERE CF = ? && RUOLO = ?";
-		
+		String cript = "";
 		try {
 			connection=DriverManagerConnectionPool.getConnection();
 			preparedStatement=connection.prepareStatement(selectSQL);
@@ -41,7 +45,8 @@ public class UserManagerDM implements UserManager<UserBean> {
 				bean.setIndirizzo(rs.getString("INDIRIZZO"));
 				bean.setCf(rs.getString("CF"));
 				bean.setEmail(rs.getString("EMAIL"));
-				bean.setPassword(rs.getString("PASSWORD"));
+				cript = rs.getString("PASSWORD");
+				bean.setPassword(MyCript.decrypt(cript));
 			}
 		}finally {
 			try {
@@ -162,20 +167,23 @@ public class UserManagerDM implements UserManager<UserBean> {
 	}
 
 	@Override
-	public UserBean doRetrieveUtente(String username, String Password) throws SQLException {
+	public UserBean doRetrieveUtente(String username, String password) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs=null;
 		UserBean bean=new UserBean();
+		
+		String cript = MyCript.encrypt(password);
+		
 		String insertSQL = "SELECT USERNAME, RUOLO, NOME, COGNOME, CF FROM CLIENTE WHERE USERNAME=?&&PASSWORD=?" ;
 				
-
+		
 		try {
 			
 			con = DriverManagerConnectionPool.getConnection();
 			ps = con.prepareStatement(insertSQL);
 			ps.setString(1, username );
-			ps.setString(2, Password);
+			ps.setString(2, cript);
 			rs=ps.executeQuery();
 			while (rs.next()) {
 				bean.setUsername(rs.getString("USERNAME"));

@@ -1,5 +1,8 @@
 package it.unisa.control;
 
+import it.unisa.bean.CarrelloBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -41,12 +44,12 @@ public class CartControl extends HttpServlet {
 		if(quantita1 != null && !quantita1.equalsIgnoreCase(""))
 			quantita = Integer.parseInt(quantita1);
 		
-		Carrello<ProdottoInMagazzinoBean> cart = (Carrello<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
+		CarrelloBean<ProdottoInMagazzinoBean> cart = (CarrelloBean<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
 
 		HttpSession session = request.getSession();
 		synchronized (session) {
 			if(cart == null) {
-				cart = new Carrello<ProdottoInMagazzinoBean>();
+				cart = new CarrelloBean<ProdottoInMagazzinoBean>();
 				session.setAttribute("cart",cart);
 			}
 			

@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInRiparazioneBean;
+
 public class RiparazioneManagerDM implements RiparazioneManager{
 
 

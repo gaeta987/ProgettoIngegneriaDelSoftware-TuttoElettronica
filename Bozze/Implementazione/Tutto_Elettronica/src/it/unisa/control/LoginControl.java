@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.Carrello;
+import it.unisa.bean.CarrelloBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+import it.unisa.bean.UserBean;
 import it.unisa.model.CarrelloManager;
 import it.unisa.model.CarrelloManagerDM;
-import it.unisa.model.UserBean;
 import it.unisa.model.UserManager;
 import it.unisa.model.UserManagerDM;
-import it.unisa.model.ProdottoInMagazzinoBean;
 import it.unisa.model.RiparazioneManagerDM;
 
 @WebServlet("/LoginControl")
@@ -50,7 +50,7 @@ public class LoginControl extends HttpServlet {
 						request.getSession().setAttribute("userRoles", "cliente");
 						redirectedPage = "/index.jsp";
 						
-						Carrello<ProdottoInMagazzinoBean> cart;
+						CarrelloBean<ProdottoInMagazzinoBean> cart;
 						cart = cartModel.doRetrieveByKey((String)request.getSession().getAttribute("codiceFiscale"));
 						request.getSession().setAttribute("cart", cart);
 					

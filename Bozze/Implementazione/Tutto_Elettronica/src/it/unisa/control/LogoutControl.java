@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.unisa.model.Carrello;
+import it.unisa.bean.CarrelloBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.CarrelloManager;
 import it.unisa.model.CarrelloManagerDM;
-import it.unisa.model.ProdottoInMagazzinoBean;
 
 @WebServlet("/LogoutControl")
 public class LogoutControl extends HttpServlet {
@@ -24,7 +24,7 @@ public class LogoutControl extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Carrello<ProdottoInMagazzinoBean> cart = (Carrello<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
+		CarrelloBean<ProdottoInMagazzinoBean> cart = (CarrelloBean<ProdottoInMagazzinoBean>) request.getSession().getAttribute("cart");
 		
 		String userRoles = (String)request.getSession().getAttribute("userRoles");
 		if(userRoles.equalsIgnoreCase("cliente")) {

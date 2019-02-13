@@ -11,9 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unisa.model.ProdottoBean;
-import it.unisa.model.ProdottoInMagazzinoBean;
-import it.unisa.model.ProdottoInRiparazioneBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+import it.unisa.bean.ProdottoInRiparazioneBean;
 import it.unisa.model.ProdottoManagerDM;
 import it.unisa.model.RiparazioneManagerDM;
 import junit.framework.TestCase;
@@ -100,15 +100,11 @@ public class TestRiparazione extends TestCase {
 		sqlData2 = new java.sql.Date(date.getTime());
 
 		ProdottoInRiparazioneBean prodottoRiparazione =  new ProdottoInRiparazioneBean();
-		prodottoRiparazione.setIdPrenotazione(1);
-		prodotto.setIdProdotto(4);
+		prodottoRiparazione.setIdPrenotazione(2);
+		prodotto.setIdProdotto(6);
 		rmd.doUpdateData(sqlData2, prodottoRiparazione.getIdPrenotazione());
 		
-		ArrayList<ProdottoInRiparazioneBean> collection = (ArrayList<ProdottoInRiparazioneBean>) rmd.doRetrieveAllRiparazioni();
-		
-		
-		assertEquals(sqlData2 ,collection.get(0).getDataFineLavoro());
-		//assertEquals(sqlData2 ,((ProdottoInRiparazioneBean) pmd.doRetrieveByKey(prodotto.getIdProdotto(), "prodottoinriparazione")).getDataFineLavoro());
+		assertEquals(sqlData2 ,((ProdottoInRiparazioneBean) pmd.doRetrieveByKey(prodotto.getIdProdotto(), "prodottoinriparazione")).getDataFineLavoro());
 	}
 	
 	public void testDoRetriveAll() throws Exception {
@@ -137,7 +133,7 @@ public class TestRiparazione extends TestCase {
 		ProdottoInRiparazioneBean prodottoRip =  new ProdottoInRiparazioneBean();
 		
 		prodottoRip.setIdPrenotazione(1);
-		prodottoRip.setIdProdotto(4);
+		prodottoRip.setIdProdotto(6);
 		prodottoRip.setDataIncontro(sqlData);
 		prodottoRip.setCodiceCliente("CMMGTN80A01C361Z");
 		prodottoRip.setStatoRiparazione("riparato");

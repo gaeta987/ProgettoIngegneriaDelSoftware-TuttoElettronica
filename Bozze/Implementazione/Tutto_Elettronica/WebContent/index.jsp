@@ -1,6 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*"%>
+pageEncoding="ISO-8859-1" import="it.unisa.model.*, java.util.*, it.unisa.bean.*"%>
 <% 
 String userRoles =(String)session.getAttribute("userRoles");
 String name = (String)session.getAttribute("name");
@@ -113,7 +113,7 @@ if(prodottiOnSale == null){
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -133,7 +133,7 @@ if(prodottiOnSale == null){
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -404,7 +404,7 @@ if(prodottiOnSale == null){
 											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="${pageContext.request.contextPath}/ImageProxyController?name=<%=prodottiOnSale.get(i).getImmagine()%>"></div>
 											<div class="product_content">
 												<div class="product_price discount"><%=prodottiOnSale.get(i).getCosto() - 5 %>&euro;<span><%=prodottiOnSale.get(i).getCosto() %>&euro;</span></div>
-												<div class="product_name"><div><a href="product.html"><%=prodottiOnSale.get(i).getNome() %></a></div></div>
+												<div class="product_name"><div><a href="VisualizzaDettaglioProdotto?id=<%=prodottiOnSale.get(i).getIdProdotto() %>"></a></div></div>
 											</div>
 										</div>
 									</div>

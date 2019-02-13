@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="java.util.*, it.unisa.model.*"%>
+    pageEncoding="ISO-8859-1" import="java.util.*, it.unisa.model.*, it.unisa.bean.*"%>
     <%
+    
     String userRoles =(String)session.getAttribute("userRoles");
     String name = (String)session.getAttribute("name");
     
@@ -108,7 +109,7 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -128,7 +129,7 @@
 						<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/logout.png" alt="" style="height:35px; width:35px;"></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="Logout">Logout</a></div>
+									<div class="wishlist_text"><a href="LogoutControl">Logout</a></div>
 									
 								</div>
 							</div>
@@ -384,7 +385,7 @@
 								</div>
 								<div class="product_price"><%=prodotto.getCosto() %>&euro;</div>
 								
-								<%if(userRoles.equalsIgnoreCase("cliente")) {%>
+								<%if(userRoles != null && userRoles.equals("cliente")) {%>
 								<div class="button_container">
 									<button type="submit" class="button cart_button">Aggiungi al carrello</button>
 								</div>

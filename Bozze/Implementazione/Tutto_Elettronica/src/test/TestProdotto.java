@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import it.unisa.model.ProdottoBean;
-import it.unisa.model.ProdottoInMagazzinoBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.ProdottoManagerDM;
 import junit.framework.TestCase;
 
@@ -191,7 +191,6 @@ public class TestProdotto extends TestCase {
 		prodottoMagazzino.setPromo(true);
 		
 		
-
 		assertEquals(coll.get(2).getIdProdotto(),prodottoMagazzino.getIdProdotto());
 		
 	}
@@ -261,7 +260,7 @@ public class TestProdotto extends TestCase {
 		ProdottoInMagazzinoBean result = (ProdottoInMagazzinoBean) pdm.doRetrieveByKey(prodottoMagazzino.getIdProdotto(), "prodottoinmagazzino");
 		
 		assertEquals(true,result.isPromo());
-	} 
+	}  
 	
 
 }

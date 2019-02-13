@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+import it.unisa.bean.ProdottoInRiparazioneBean;
+import it.unisa.bean.ProdottoPrenotatoBean;
+
 
 public class ProdottoManagerDM implements ProdottoManager<ProdottoBean> {
 

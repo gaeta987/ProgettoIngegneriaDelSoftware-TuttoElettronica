@@ -8,19 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import it.unisa.bean.CarrelloBean;
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
+
 public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBean>{
 
 	static ProdottoManager<ProdottoBean> model = new ProdottoManagerDM();
 	
 	@Override
-	public Carrello<ProdottoInMagazzinoBean> doRetrieveByKey(String codiceCliente) throws SQLException {
+	public CarrelloBean<ProdottoInMagazzinoBean> doRetrieveByKey(String codiceCliente) throws SQLException {
 		Connection connection=null;
 		PreparedStatement preparedStatement=null;
 		
 		String selectSQL="SELECT * FROM CARRELLO WHERE cf_cliente= ?";
 		String[]prodotti;
 		ArrayList<ProdottoInMagazzinoBean> prodottiC = new ArrayList<ProdottoInMagazzinoBean>();
-		Carrello<ProdottoInMagazzinoBean> cart = new Carrello<ProdottoInMagazzinoBean>();
+		CarrelloBean<ProdottoInMagazzinoBean> cart = new CarrelloBean<ProdottoInMagazzinoBean>();
 		
 		try {
 			connection=DriverManagerConnectionPool.getConnection();
@@ -59,7 +63,7 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 	}
 	
 	
-	public boolean doInsertProdotti(Carrello carrello) throws SQLException{
+	public boolean doInsertProdotti(CarrelloBean carrello) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
@@ -94,7 +98,7 @@ public class CarrelloManagerDM implements CarrelloManager<ProdottoInMagazzinoBea
 		}
 	}
 	
-	public boolean doDeleteProdotti(Carrello carrello) throws SQLException{
+	public boolean doDeleteProdotti(CarrelloBean carrello) throws SQLException{
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		

@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.unisa.bean.ProdottoBean;
+import it.unisa.bean.ProdottoInMagazzinoBean;
 import it.unisa.model.ProdottoManager;
 import it.unisa.model.ProdottoManagerDM;
-import it.unisa.model.ProdottoBean;
-import it.unisa.model.ProdottoInMagazzinoBean;
 
 /**
  * Servlet implementation class VisualizzaModificheProdottoControl
